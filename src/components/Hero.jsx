@@ -1,17 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import FONDO from "../../public/fondo.jpg"
+import FONDO from "../../public/fondo.jpg"; // Asegúrate de que la ruta sea válida
 
 const Hero = () => {
   return (
-    <section
-      className="relative bg-cover bg-center h-[500px] flex items-center justify-center text-center"
-      style={{ backgroundImage: FONDO }}
-    >
+    <div className="relative h-[500px] flex items-center justify-center text-center overflow-hidden">
+      {/* Imagen de fondo */}
+      <img
+        src={FONDO}
+        alt="Fondo"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      
       {/* Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-      {/* Content */}
+      {/* Contenido principal */}
       <div className="relative z-10 text-white px-4">
         <h2 className="text-4xl font-bold mb-4">
           Bienvenidos a <strong className="text-orange-600">OFIX</strong>
@@ -33,7 +37,7 @@ const Hero = () => {
           </button>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -188,7 +188,7 @@ const ServiceCategories = () => {
         <div className="lg:hidden space-y-6 mt-8">
           <div className="bg-gray-200 shadow-lg rounded-lg text-center p-4">
             <img
-              src={PUBLICIDAD2}
+              src={PUBLICIDAD1}
               alt="Imagen móvil 1"
               className="w-full h-40 object-cover rounded-lg mb-4"
             />
@@ -198,7 +198,7 @@ const ServiceCategories = () => {
           </div>
           <div className="bg-gray-200 shadow-lg rounded-lg text-center p-4">
             <img
-              src={PUBLICIDAD2}
+              src={PUBLICIDAD1}
               alt="Imagen móvil 2"
               className="w-full h-40 object-cover rounded-lg mb-4"
             />
