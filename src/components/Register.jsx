@@ -1,5 +1,6 @@
 import React from "react";
 import { FaTiktok, FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import LOGO from "../../public/logoOfix.png"
 
 const Register = () => {
   // Array de planes
@@ -35,7 +36,7 @@ const Register = () => {
       {/* Logo */}
       <div className="mb-6">
         <img
-          src="../../public/logoOfix.png" // Asegúrate de agregar tu logo en la carpeta pública
+          src={LOGO}// Asegúrate de agregar tu logo en la carpeta pública
           alt="Logo"
           className="w-32 h-auto mx-auto"
         />

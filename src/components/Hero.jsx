@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import FONDO from "../../public/fondo.jpg"
 
 const Hero = () => {
   return (
     <section
       className="relative bg-cover bg-center h-[500px] flex items-center justify-center text-center"
-      style={{ backgroundImage: 'url("../../public/fondo.jpg")' }}
+      style={{ backgroundImage: FONDO }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>

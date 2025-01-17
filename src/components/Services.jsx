@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import PUBLICIDAD1 from "../../public/publicidad1.webp"
+import PUBLICIDAD2 from "../../public/publicidad2.webp"
+
+
+
 
 const ServiceCategories = () => {
   const [activeSection, setActiveSection] = useState(null);
@@ -111,7 +116,7 @@ const ServiceCategories = () => {
   <div className="w-full lg:w-1/3 p-4 bg-gray-200 shadow-lg rounded-lg text-center cursor-pointer hover:bg-gray-300 transition-all">
     <a href="/destination">
       <img
-        src="../../public/publicidad2.webp"
+        src={PUBLICIDAD2}
         alt="Imagen 1"
         className="w-full h-40 object-cover rounded-lg mb-4"
       />
@@ -121,7 +126,7 @@ const ServiceCategories = () => {
   <div className="w-full lg:w-1/3 p-4 bg-gray-200 shadow-lg rounded-lg text-center cursor-pointer hover:bg-gray-300 transition-all">
     <a href="/destination">
       <img
-        src="../../public/publicidad2.webp"
+        src={PUBLICIDAD2}
         alt="Imagen 2"
         className="w-full h-40 object-cover rounded-lg mb-4"
       />
@@ -131,7 +136,7 @@ const ServiceCategories = () => {
   <div className="w-full lg:w-1/3 p-4 bg-gray-200 shadow-lg rounded-lg text-center cursor-pointer hover:bg-gray-300 transition-all">
     <a href="/destination">
       <img
-        src="../../public/publicidad2.webp"
+        src={PUBLICIDAD2}
         alt="Imagen 2"
         className="w-full h-40 object-cover rounded-lg mb-4"
       />
@@ -183,7 +188,7 @@ const ServiceCategories = () => {
         <div className="lg:hidden space-y-6 mt-8">
           <div className="bg-gray-200 shadow-lg rounded-lg text-center p-4">
             <img
-              src="../../public/publicidad1.webp"
+              src={PUBLICIDAD2}
               alt="Imagen móvil 1"
               className="w-full h-40 object-cover rounded-lg mb-4"
             />
@@ -193,7 +198,7 @@ const ServiceCategories = () => {
           </div>
           <div className="bg-gray-200 shadow-lg rounded-lg text-center p-4">
             <img
-              src="../../public/publicidad1.webp"
+              src={PUBLICIDAD2}
               alt="Imagen móvil 2"
               className="w-full h-40 object-cover rounded-lg mb-4"
             />

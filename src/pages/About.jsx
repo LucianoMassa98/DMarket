@@ -1,26 +1,27 @@
 import React from "react";
 import { motion } from "framer-motion";
+import LOGO from "../../public/perfil.webp"
 
 const About = () => {
   const people = [
     {
       nombre: "Juan Pérez",
       apellido: "González",
-      imagen: "../../public/perfil.webp",
+      imagen: LOGO,
       rol: "Fundador y CEO",
       mensaje: "Mi misión es conectar talentos con oportunidades laborales de calidad.",
     },
     {
       nombre: "María López",
       apellido: "Fernández",
-      imagen: "../../public/perfil.webp",
+      imagen: LOGO,
       rol: "CTO",
       mensaje: "Creo en la tecnología como una herramienta para transformar vidas.",
     },
     {
       nombre: "Carlos Gómez",
       apellido: "Sánchez",
-      imagen: "../../public/perfil.webp",
+      imagen: LOGO,
       rol: "CMO",
       mensaje: "Ayudamos a los trabajadores independientes a destacarse en el mercado.",
     },

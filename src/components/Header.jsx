@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import LOGO from "../../public/logoOfix.png"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,7 +10,7 @@ const Header = () => {
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <img
-            src="../../public/logoOfix.png"
+            src={LOGO}
             alt="Logo"
             className="w-16 h-16" // Aumenté el tamaño del logo
           />
