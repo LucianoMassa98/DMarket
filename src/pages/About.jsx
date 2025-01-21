@@ -5,8 +5,8 @@ import LOGO from "../../public/perfil.webp"
 const About = () => {
   const people = [
     {
-      nombre: "Tania Fernandez",
-      apellido: "González",
+      nombre: "Tania",
+      apellido: "Fernandez",
       imagen: "https://media-eze1-1.cdn.whatsapp.net/v/t61.24694-24/473399736_565627269779463_5440106871922415124_n.jpg?ccb=11-4&oh=01_Q5AaIPebi2pdRmrGPo4MZEBhA1Mx2XksAvzmqCkc0qaEKwoY&oe=679D092D&_nc_sid=5e03e0&_nc_cat=100",
       rol: "Fundador y CEO",
       mensaje: "Mi misión es conectar talentos con oportunidades laborales de calidad.",
@@ -19,12 +19,11 @@ const About = () => {
       mensaje: "Creo en la tecnología como una herramienta para transformar vidas.",
     },
     {
-      nombre: "Carlos Gómez",
-      apellido: "Sánchez",
+      nombre: "Tú",
+      apellido: "",
       imagen: LOGO,
-      rol: "CMO",
-      mensaje: "Ayudamos a los trabajadores independientes a destacarse en el mercado.",
-    },
+      rol: "Partner",
+      mensaje: "Estamos en busca de alianzas estratégicas que identifiquen una oportunidad de inversión y contribuyan al crecimiento de OFIX."    },
   ];
 
   return (
