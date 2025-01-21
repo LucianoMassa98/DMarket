@@ -2,8 +2,8 @@ import React from "react";
 import { FaWhatsapp } from "react-icons/fa"; // Importamos el icono de WhatsApp desde react-icons
 
 const WhatsAppButton = () => {
-  const phoneNumber = "+549XXXXXXXXX"; // Reemplaza con tu número de soporte en WhatsApp
-  const message = "¡Hola! Necesito soporte.";
+  const phoneNumber = "+5492645109954"; // Reemplaza con tu número de soporte en WhatsApp
+  const message = "¡Hola! Me interesa OFIX como [Cliente, proveeder y/o partner]";
 
   // Enlace de WhatsApp con un mensaje predefinido
   const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;

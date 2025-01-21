@@ -5,16 +5,16 @@ import LOGO from "../../public/perfil.webp"
 const About = () => {
   const people = [
     {
-      nombre: "Juan Pérez",
+      nombre: "Tania Fernandez",
       apellido: "González",
-      imagen: LOGO,
+      imagen: "https://media-eze1-1.cdn.whatsapp.net/v/t61.24694-24/473399736_565627269779463_5440106871922415124_n.jpg?ccb=11-4&oh=01_Q5AaIPebi2pdRmrGPo4MZEBhA1Mx2XksAvzmqCkc0qaEKwoY&oe=679D092D&_nc_sid=5e03e0&_nc_cat=100",
       rol: "Fundador y CEO",
       mensaje: "Mi misión es conectar talentos con oportunidades laborales de calidad.",
     },
     {
-      nombre: "María López",
-      apellido: "Fernández",
-      imagen: LOGO,
+      nombre: "Luciano",
+      apellido: "Massa",
+      imagen: "https://backend-media-production.up.railway.app/api/v1/imagenes/JLC1gFYCp7.jpg",
       rol: "CTO",
       mensaje: "Creo en la tecnología como una herramienta para transformar vidas.",
     },
