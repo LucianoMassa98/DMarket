@@ -6,27 +6,21 @@ const Register = () => {
   // Array de planes
   const plans = [
     {
-      title: "Plan Gratis - 1 Mes",
+      title: "Plan Gratis",
       description:
-        "Regístrate de forma gratuita y comienza a generar ganancias durante 1 mes. Sin compromisos.",
+        "Únete sin costo y comienza a generar ingresos durante 1 mes. Sin ataduras ni compromisos.",
       price: "Gratis",
-      link: "https://forms.gle/r2gMuZmbA2jq4RgA9", // Enlace al formulario de Google o página de suscripción
+      link: "https://forms.gle/r2gMuZmbA2jq4RgA9", // Enlace al formulario de registro
     },
     {
-      title: "Plan Semestral",
+      title: "Plan Patrocinador",
       description:
-        "Accede a beneficios exclusivos y genera ingresos con un registro de 6 meses.",
-      price: "$40.000",
-      link: "/semestre", // Enlace al proceso de suscripción o pago
-    },
-    {
-      title: "Plan Anual",
-      description:
-        "Suscríbete por un año y recibe un descuento especial. Genera ingresos todo el año.",
-      price: "$60.000",
-      link: "/anual", // Enlace al proceso de suscripción o pago
+        "Obtén acceso a beneficios exclusivos y maximiza tu visibilidad.",
+      price: "Desde $50.000",
+      link: "/pre-lanzamiento", // Enlace al proceso de suscripción o pago
     },
   ];
+  
 
   return (
     <section
