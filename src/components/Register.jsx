@@ -8,7 +8,7 @@ const Register = () => {
     {
       title: "Plan Gratis",
       description:
-        "Únete sin costo y comienza a generar ingresos durante 1 mes. Sin ataduras ni compromisos.",
+        "Únete sin costo y empieza a generar ingresos ofreciendo tus servicios. Sin inversión ni pagos, solo crecimiento y oportunidades para quienes se quedan.",
       price: "Gratis",
       link: "https://forms.gle/r2gMuZmbA2jq4RgA9", // Enlace al formulario de registro
     },

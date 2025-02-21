@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import useMembersData from "../hooks/useMembersData";
 import useCommentsData from "../hooks/useCommentsData";
 import MemberProfile from "../components/MemberProfile";
+import Patrocinadores from "../components/Patrocinadores";
+
 import DEFAULT_IMAGE from "../../public/perfil.webp";
 
 const ProfessionalPage = () => {
@@ -39,7 +41,7 @@ const ProfessionalPage = () => {
     if (memberComments.length === 0) return "Sin calificaciones";
 
     const average =
-      memberComments.reduce((acc, curr) => acc + parseFloat(curr.calificacion), 0) /
+      memberComments.reduce((acc, curr) => acc + parseFloat(curr.calificacion), 0) / 
       memberComments.length;
     return average.toFixed(1) + " / 5";
   };
@@ -58,16 +60,17 @@ const ProfessionalPage = () => {
   if (membersError || commentsError) return <p className="text-center text-lg text-red-500">Error al cargar datos.</p>;
 
   return (
-    <div className="p-6">
+    <div className="p-6 min-h-screen">
+
       <h1 className="text-3xl font-bold text-center mb-6">Lista de Profesionales</h1>
 
       {/* Filtros */}
-      <div className="flex justify-center gap-4 mb-8">
+      <div className="flex flex-wrap justify-center gap-4 mb-8">
         <select
           name="servicio"
           value={filters.servicio}
           onChange={handleFilterChange}
-          className="border border-gray-300 rounded-md p-2 text-sm"
+          className="border border-gray-300 rounded-md p-2 text-sm w-full sm:w-64"
         >
           <option value="">Todos los Servicios</option>
           {uniqueServices.map((service) => (
@@ -81,7 +84,7 @@ const ProfessionalPage = () => {
           name="departamento"
           value={filters.departamento}
           onChange={handleFilterChange}
-          className="border border-gray-300 rounded-md p-2 text-sm"
+          className="border border-gray-300 rounded-md p-2 text-sm w-full sm:w-64"
         >
           <option value="">Todos los Departamentos</option>
           {uniqueDepartments.map((department) => (
@@ -120,6 +123,10 @@ const ProfessionalPage = () => {
           <p className="col-span-full text-center text-gray-500">No se encontraron profesionales.</p>
         )}
       </div>
+
+      <h1 className="text-3xl font-bold text-center mb-6 mt-10">Patrocinadores</h1>
+
+      <Patrocinadores />
     </div>
   );
 };
