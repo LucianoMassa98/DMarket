@@ -3,6 +3,7 @@ import DEFAULT_IMAGE from "../../public/perfil.webp" // Imagen predeterminada
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa"; // Importamos el icono de WhatsApp desde react-icons
 
+import DepartamentoMapa from "../components/DepartamentoMapa";
 
 
 const MemberProfile = ({ member, onBack, commentsData }) => {
@@ -139,6 +140,9 @@ const MemberProfile = ({ member, onBack, commentsData }) => {
       </div>
     </div>
   )}
+
+<DepartamentoMapa departamento={member.departamento}/>
+
 </section>
 
   );
