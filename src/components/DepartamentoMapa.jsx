@@ -22,7 +22,6 @@ const DepartamentoMapa = ({ departamento }) => {
 
   const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${location.lat},${location.lng}&zoom=12&size=600x300&maptype=roadmap&markers=color:red%7C${location.lat},${location.lng}&key=${apikey}`;
 
-  alert(mapUrl)
   return (
     <div className="flex flex-col items-center p-4">
       <h2 className="text-xl font-bold mb-4">Ubicación de {departamento}</h2>
