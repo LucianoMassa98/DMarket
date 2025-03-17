@@ -1,108 +1,71 @@
-import React, { useState } from "react";
-import LOGO from "../../public/logoOfix.png"
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-orange-500 text-white p-4">
-      <div className="container mx-auto flex justify-between items-center">
+    <header className="bg-green-500 text-white p-4 shadow-md sticky top-0 z-50">
+      <div className="container mx-auto flex items-center justify-between">
+        {/* Menú hamburguesa (mobile) */}
+        <button
+          className="md:hidden"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? (
+            <X size={40} className="text-black" />
+          ) : (
+            <Menu size={40} className="text-black" />
+          )}
+        </button>
+        
         {/* Logo */}
-        <div className="flex items-center space-x-2">
+        <div className="flex-1 flex justify-center">
           <img
-            src={LOGO}
+            src="/logo.webp"
             alt="Logo"
-            className="w-16 h-16" // Aumenté el tamaño del logo
+            className="h-16 rounded-xl"
           />
         </div>
-
-        {/* Navigation for larger screens */}
-        <nav className="hidden md:flex">
-          <ul className="flex space-x-4">
-
-          <li><a href="/" className="hover:underline">Inicio</a></li>
-          <li><a href="/professionals" className="hover:underline">Profesionales</a></li>
-          <li><a href="/about" className="hover:underline">Nosotros</a></li>
-          <li><a href="/register" className="hover:underline">Registrarme</a></li>
-
-          </ul>
-        </nav>
-
-        {/* Hamburger Menu */}
-        <button
-          className="md:hidden flex items-center focus:outline-none"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        
+        {/* Navegación */}
+        <nav
+          className={`absolute md:static top-20 left-0 w-full bg-green-500 bg-opacity-80 md:flex md:w-auto md:space-x-6 md:items-center p-4 md:p-0 transition-all duration-300 ${isOpen ? "block w-full h-screen left-0 top-0" : "hidden"}`}
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}
-            />
-          </svg>
-        </button>
+          {/* Menú de texto centrado y con mayor tamaño */}
+          <div className="flex flex-col items-center justify-center h-full w-full space-y-6 md:space-y-0 md:flex-row md:space-x-6">
+            
+          <a
+              href="/"
+              className="text-black text-3xl md:text-lg py-2 px-4 hover:bg-green-700 rounded transition duration-200"
+            >
+              Comprar
+            </a>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="absolute top-16 left-0 w-full bg-orange-500 shadow-lg z-10">
-            <ul className="flex flex-col space-y-2 p-4">
+            <a
+              href="/vendors"
+              className="text-black text-3xl md:text-lg py-2 px-4 hover:bg-green-700 rounded transition duration-200"
+            >
+              Vender
+            </a>
+            <a
+              href="/riders"
+              className="text-black text-3xl md:text-lg py-2 px-4 hover:bg-green-700 rounded transition duration-200"
+            >
+              Repartir
+            </a>
 
-            <li>
-                <a
-                  href="/"
-                  className="hover:underline"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Inicio
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/professionals"
-                  className="hover:underline"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Profesionales
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="/about"
-                  className="hover:underline"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Nosotros
-                </a>
-              </li>
-
-
-              <li>
-                <a
-                  href="/register"
-                  className="hover:underline"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Registrarme
-                </a>
-              </li>
-              
-
-
-
-            </ul>
+            <a
+              href="/about"
+              className="text-black text-3xl md:text-lg py-2 px-4 hover:bg-green-700 rounded transition duration-200"
+            >
+              Nosotros
+            </a>
+            
+            
           </div>
-        )}
+        </nav>
       </div>
     </header>
   );
-};
-
-export default Header;
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import FONDO from "../../public/fondo.jpg"; // Asegúrate de que la ruta sea válida
 

@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
+import LOGO from "../../public/perfil.webp";
 
-const useMembersData = (url) => {
-  const [membersData, setMembersData] = useState([]);
+const useProductsData = () => {
+
+  const url ="https://docs.google.com/spreadsheets/d/1oxRTbNzsy7ff8pVewThlLwiRGubZVBsu-WaF17sS5hI/gviz/tq?tqx=out:json";
+
+  const [productsData, setProductsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -24,21 +28,20 @@ const useMembersData = (url) => {
         });
 
         const formattedData = rows.map((row) => ({
-          createdAt: row["Marca temporal"] || "",
-          dni: row["D.N.I"] || "",
-          certificados: row["Certificados"] || "",
-          domicilio: row["Domicilio"] || "",
-          whatsapp: row["WhatsApp"] || "",
+          id: row["Marca temporal"] || "",
+          brand: row["Marca"] || "",
+          category: row["Categoría"] || "",
+          subcategory: row["Sub Categoría"] || "",
+          tags: row["Descripción"] || "",
           estado: row["Estado"] || "",
-          nombre: row["Nombre"] || "",
-          apellido: row["Apellido"] || "",
-          departamento: row["Departamento"] || "",
-          servicio: row["Servicio"] || "",
-          correo: row["Dirección de correo electrónico"] || "",
-          image: row["image"] || "",
+          name: row["Nombre"] || "",
+          price: row["Precio"] || "",
+          cantidad: row["Cantidad"] || "",
+          img: row["URL Image"] || LOGO,
+          email: row["Dirección de correo electrónico"] || "",
         }));
 
-        setMembersData(formattedData);
+        setProductsData(formattedData);
         setLoading(false);
       })
       .catch((err) => {
@@ -47,7 +50,7 @@ const useMembersData = (url) => {
       });
   }, [url]);
 
-  return { membersData, loading, error };
+  return { productsData, loading, error };
 };
 
-export default useMembersData;
+export default useProductsData;
