@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
+
 const ProductCard = ({ producto, agregarAlCarrito }) => {
   const [cantidad, setCantidad] = useState(1); // Asegura que siempre hay un valor numérico
 
@@ -20,13 +21,12 @@ const ProductCard = ({ producto, agregarAlCarrito }) => {
   };
 
   const handleAgregarAlCarrito = () => {
-
     const cantidadFinal = cantidad === "" ? 1 : cantidad;
     agregarAlCarrito({...producto, cantidad:cantidadFinal });
   };
 
   return (
-    <div className="bg-white p-0 rounded-lg">
+    <div className="bg-white p-4 rounded-lg ">
       <img
         src={producto.img}
         alt={producto.name}
@@ -43,37 +43,25 @@ const ProductCard = ({ producto, agregarAlCarrito }) => {
         </p>
         <p className="text-xl font-bold mt-2">${producto.price}</p>
 
-        <div className="mt-4 flex items-center justify-between">
+        <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-4">
           {/* Selector de cantidad */}
           <input
             type="number"
             value={cantidad}
             onChange={handleCantidadChange}
             onBlur={handleBlur}
-            className="w-16 p-2 border border-gray-300 rounded-md text-center"
+            className="w-20 sm:w-16 p-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-green-500"
             min="1"
           />
 
           {/* Botón de agregar al carrito */}
           <button
             onClick={handleAgregarAlCarrito}
-            className="bg-green-800 text-white py-2 px-4 rounded-md mt-0 ml-4"
+            className="bg-green-800 text-white py-2 px-6 rounded-md text-sm sm:text-base hover:bg-green-700 transition-colors duration-200"
           >
-            🛒 Agregar
+            🛒
           </button>
         </div>
-
-        {/* Flecha para ir a la página de detalles del producto 
-        <div
-          className="mt-4 flex items-center text-blue-600 cursor-pointer"
-          onClick={() => (window.location.href = `/detalles/${producto.id}`)}
-        >
-          <FaArrowRight className="w-5 h-5" />
-          <span className="ml-2">Ver más detalles</span>
-        </div>
-        
-        */}
-        
       </div>
     </div>
   );

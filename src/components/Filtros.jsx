@@ -2,7 +2,7 @@ import React from 'react';
 
 const Filtros = ({ filtro, setFiltro }) => {
   return (
-    <div className="p-4 bg-green-500 rounded-lg shadow-md">
+    <div className="p-4 bg-green-500 rounded-lg shadow-md mb-9">
       {/* Único input de búsqueda */}
       <input
         type="text"
