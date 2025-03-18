@@ -32,7 +32,7 @@ const useProductsData = () => {
           brand: row["Marca"] || "",
           category: row["Categoría"] || "",
           subcategory: row["Sub Categoría"] || "",
-          tags: row["Descripción"] || "",
+          descripcion: row["Descripción"] || "",
           estado: row["Estado"] || "",
           name: row["Nombre"] || "",
           price: row["Precio"] || "",

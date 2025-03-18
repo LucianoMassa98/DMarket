@@ -28,7 +28,7 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
     let mensaje = "🛒 *Pedido realizado desde Digital Market*%0A%0A";
 
     productosPorEmail[email].productos.forEach((producto) => {
-        mensaje += `📌 ${producto.name+ " "+ producto.brand+ " "+producto.tags} x${producto.cantidad} / $${producto.price} - $${producto.price * producto.cantidad}%0A`;
+        mensaje += `📌 ${producto.name+ " "+ producto.brand+ " "+producto.descripcion} x${producto.cantidad} / $${producto.price} - $${producto.price * producto.cantidad}%0A`;
     });
 
     mensaje += `%0A💰 *Total:* $${productosPorEmail[email].productos.reduce((acc, p) => acc + p.price * p.cantidad, 0)}%0A`;

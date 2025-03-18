@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
-
 const ProductCard = ({ producto, agregarAlCarrito }) => {
   const [cantidad, setCantidad] = useState(1); // Asegura que siempre hay un valor numérico
 
@@ -40,7 +39,7 @@ const ProductCard = ({ producto, agregarAlCarrito }) => {
           {producto.category} - {producto.subcategory}
         </p>
         <p className="text-gray-500 text-sm">
-          {producto.tags || "Descripción no disponible"}
+          {producto.descripcion || "Descripción no disponible"}
         </p>
         <p className="text-xl font-bold mt-2">${producto.price}</p>
 

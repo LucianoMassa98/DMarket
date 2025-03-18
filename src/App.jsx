@@ -51,15 +51,21 @@ const eliminarDelCarrito = (productoId) => {
 const [filtro, setFiltro] = useState('');
 
 const filtrarProductos = () => {
-  return productos.filter(producto => 
-    producto.name.toLowerCase().includes(filtro.toLowerCase()) ||
-    producto.brand.toLowerCase().includes(filtro.toLowerCase()) ||
-    producto.category.toLowerCase().includes(filtro.toLowerCase()) ||
-    producto.subcategory.toLowerCase().includes(filtro.toLowerCase()) ||
-    producto.id.toString().includes(filtro.toLowerCase()) ||
-    producto.tags.some(tag => tag.toLowerCase().includes(filtro.toLowerCase())) ||
-    producto.email.toLowerCase().includes(filtro.toLowerCase())
-  );
+  const filtroNormalizado = filtro.trim().toLowerCase();
+  if (!filtroNormalizado) return productos; // Si el filtro está vacío, devuelve todos los productos
+
+  return productos.filter(producto => {
+    const valores = [
+      producto.name,
+      producto.brand,
+      producto.category,
+      producto.subcategory,
+      producto.id.toString(),
+      producto.descripcion
+    ].map(valor => valor?.toString().trim().toLowerCase()); // Normaliza valores
+
+    return valores.some(valor => valor.includes(filtroNormalizado)); // Compara con el filtro
+  });
 };
 
 
@@ -75,7 +81,7 @@ const filtrarProductos = () => {
               <Services />
               <Ofertas />
               <div className="p-6">
-              <Filtros filtro={filtro} setFiltro={setFiltro} productos={productos} />
+              <Filtros filtro={filtro} setFiltro={setFiltro} />
               <ProductList productos={filtrarProductos()} agregarAlCarrito={agregarAlCarrito} />
               <Cart carrito={carrito} eliminarDelCarrito={eliminarDelCarrito} vendors={vendorsData}/>
             </div>
