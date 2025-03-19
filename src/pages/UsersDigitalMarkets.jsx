@@ -47,7 +47,7 @@ const UsersDigitalMarkets = () => {
           <FaShoppingBag className="text-green-500 text-6xl" />
           <h2 className="text-2xl font-semibold mt-4">Compra Productos Cerca de Ti</h2>
           <p className="text-gray-600 mt-2 text-center">
-            Solo necesitas WhatsApp para acceder al catálogo de productos y comprar directamente con el dueño del negocio, con opción de envío o retiro en el local.
+          Agrega los productos que más te interesan al carrito, luego abre el carrito con tus selecciones, elige el método de envío y finaliza el pedido enviando la nota de pedido detallada al negocio correspondiente a través de un mensaje de WhatsApp.
           </p>
           <motion.a
             whileHover={{ scale: 1.05 }}

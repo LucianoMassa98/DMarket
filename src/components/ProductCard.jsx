@@ -33,7 +33,7 @@ const ProductCard = ({ producto, agregarAlCarrito }) => {
         className="w-full h-48 object-cover rounded-t-lg"
       />
 
-      <div className="p-4">
+      <div className="">
         <h3 className="text-lg font-semibold">{producto.name}</h3>
         <p className="text-gray-300 text-sm">
           {producto.category} - {producto.subcategory}
@@ -53,7 +53,7 @@ const ProductCard = ({ producto, agregarAlCarrito }) => {
     className="w-20 sm:w-16 p-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-green-500"
     min="1"
   />
-  <span className="text-sm text-gray-600">unidades</span>
+  <span className="text-sm text-gray-600">und.</span>
 </div>
 
 
