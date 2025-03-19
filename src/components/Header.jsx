@@ -67,7 +67,12 @@ export default function Header() {
               Nosotros
             </a>
             
-            
+            <a
+              href="/app"
+              className="text-black text-3xl md:text-lg py-2 px-4 hover:bg-green-700 rounded transition duration-200"
+            >
+              App
+            </a>
           </div>
         </nav>
       </div>

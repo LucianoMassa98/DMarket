@@ -12,6 +12,7 @@ import Cart from './components/Cart';
 import DigitalMarketVendors from "./pages/DigitalMarketVendors";
 import DigitalMarketRiders from "./pages/DigitalMarketRiders";
 import UsersDigitalMarkets from "./pages/UsersDigitalMarkets";
+import AddToHome from "./pages/AddToHome";
 
 import useProductsData from "../src/hooks/useProductsData";
 import useVendorsData from "../src/hooks/useVendorsData";
@@ -96,6 +97,8 @@ const filtrarProductos = () => {
         <Route path="/users" element={<UsersDigitalMarkets />} />
         <Route path="/vendors" element={<DigitalMarketVendors />} />
         <Route path="/riders" element={<DigitalMarketRiders />} />
+        <Route path="/app" element={<AddToHome />} />
+
 
       </Routes>
       <Footer />
