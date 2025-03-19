@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ShoppingCart, ChevronDown, ArrowLeft } from "lucide-react"; // Iconos
+import { ShoppingCart, ChevronDown, ArrowLeft,Info } from "lucide-react"; // Iconos
 
 const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,16 +26,19 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
       console.error("Vendor no encontrado.");
       return;
     }
-
+  
     let mensaje = "🛒 *Pedido realizado desde Digital Market*%0A%0A";
-
+  
     productosPorEmail[email].productos.forEach((producto) => {
       mensaje += `📌 ${producto.name+ " "+ producto.brand+ " "+producto.descripcion} x${producto.cantidad} / $${producto.price} - $${producto.price * producto.cantidad}%0A`;
     });
-
+  
     mensaje += `%0A💰 *Total:* $${productosPorEmail[email].productos.reduce((acc, p) => acc + p.price * p.cantidad, 0)}%0A`;
     mensaje += `🚚 *Método de envío:* ${productosPorEmail[email].envio === "envio" ? "Envío a domicilio" : "Retiro en puerta"}`;
-
+  
+    // Agregar la línea "Detalle:"
+    mensaje += `%0A🔍 *Detalle:* ...`;
+  
     const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
     window.open(url, "_blank");
   };
