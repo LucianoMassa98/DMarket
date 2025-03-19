@@ -34,7 +34,12 @@ export default function Header() {
         >
           {/* Menú de texto centrado y con mayor tamaño */}
           <div className="flex flex-col items-center justify-center h-full w-full space-y-6 md:space-y-0 md:flex-row md:space-x-6">
-            
+          <a
+              href="/users"
+              className="text-black text-3xl md:text-lg py-2 px-4 hover:bg-green-700 rounded transition duration-200"
+            >
+              Usuario
+            </a>
           <a
               href="/"
               className="text-black text-3xl md:text-lg py-2 px-4 hover:bg-green-700 rounded transition duration-200"
