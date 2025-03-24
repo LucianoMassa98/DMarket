@@ -3,68 +3,82 @@ import { ShoppingCart, ChevronDown, ArrowLeft,Info } from "lucide-react"; // Ico
 
 const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
   const [isOpen, setIsOpen] = useState(false);
-  
+
+  // Estado para manejar el tipo de envío por email
+  const [envios, setEnvios] = useState(
+    carrito.reduce((acc, producto) => {
+      acc[producto.email] = "envio"; // Valor predeterminado
+      return acc;
+    }, {})
+  );
+
   // Calcular la cantidad total de productos en el carrito
   const totalProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0);
 
   // Agrupar productos por email
   const productosPorEmail = carrito.reduce((acc, producto) => {
-    acc[producto.email] = acc[producto.email] || { productos: [], envio: "envio", phone: producto.phone, vendor: vendors[producto.email] };
+    acc[producto.email] = acc[producto.email] || { productos: [], phone: producto.phone, vendor: vendors[producto.email] };
     acc[producto.email].productos.push(producto);
     return acc;
   }, {});
 
   // Función para manejar el cambio en método de envío por cada email
   const manejarEnvio = (email, metodo) => {
-    productosPorEmail[email].envio = metodo;
+    setEnvios((prevEnvios) => ({
+      ...prevEnvios,
+      [email]: metodo,
+    }));
   };
 
   // Función para enviar pedido a WhatsApp
   const enviarPedidoWhatsApp = (email) => {
-    const vendor = vendors.find(v => v.correo == email);
+    const vendor = vendors.find((v) => v.correo === email);
     if (!vendor) {
       console.error("Vendor no encontrado.");
       return;
     }
-  
-    const envioSeleccionado = productosPorEmail[email].envio;
+
+    const envioSeleccionado = envios[email];
     const formasDePagoSeleccionadas = Array.from(
       document.querySelectorAll(`input[name="pago-${email}"]:checked`)
-    ).map(input => input.value);
-  
+    ).map((input) => input.value);
+
     if (!envioSeleccionado) {
       alert("Por favor, selecciona un método de envío.");
       return;
     }
-  
+
     if (formasDePagoSeleccionadas.length === 0) {
       alert("Por favor, selecciona al menos una forma de pago.");
       return;
     }
-  
+
     let mensaje = "🛒 *Pedido realizado desde Digital Market*%0A%0A";
-  
+
     productosPorEmail[email].productos.forEach((producto) => {
-      mensaje += `📌 ${producto.name+ " "+ producto.brand+ " "+producto.descripcion} x${producto.cantidad} / $${producto.price} - $${producto.price * producto.cantidad}%0A`;
+      mensaje += `📌 ${producto.name + " " + producto.brand + " " + producto.descripcion} x${producto.cantidad} / $${producto.price} - $${producto.price * producto.cantidad}%0A`;
     });
-  
+
     mensaje += `%0A💰 *Total:* $${productosPorEmail[email].productos.reduce((acc, p) => acc + p.price * p.cantidad, 0)}%0A`;
+
+    // Usar el método de envío específico para este pedido
     mensaje += `🚚 *Método de envío:* ${envioSeleccionado === "envio" ? "Envío a domicilio" : "Retiro en puerta"}%0A`;
+
     mensaje += `💳 *Forma(s) de pago:* ${formasDePagoSeleccionadas.join(", ")}%0A`;
-  
+
     // Agregar detalle adicional si existe
     const detalle = productosPorEmail[email].detalle || "";
     if (detalle) {
       mensaje += `%0A🔍 *Detalle:* ${detalle}`;
     }
-  
-    // Agregar mensaje según método de envío
+
+    // Agregar mensaje según el método de envío específico
     if (envioSeleccionado === "envio") {
       mensaje += `%0A📍 *Nota:* Proporciona tu ubicación si no eres cliente habitual del comerciante.`;
     } else if (envioSeleccionado === "retiro") {
       mensaje += `%0A📍 *Ubicación para retiro:* ${vendor.ubicacion}`;
     }
-  
+
     const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
     window.open(url, "_blank");
   };
@@ -170,8 +184,8 @@ if (findVendor(email)?.entrega === "Retiro en el local" || findVendor(email)?.en
 }
 
 // Si ya hay una opción seleccionada, mantenerla; si no, usar la primera opción disponible
-const opcionSeleccionada = opciones.includes(productosPorEmail[email].envio)
-  ? productosPorEmail[email].envio
+const opcionSeleccionada = opciones.includes(envios[email])
+  ? envios[email]
   : opciones[0];
 
 
@@ -185,7 +199,7 @@ const opcionSeleccionada = opciones.includes(productosPorEmail[email].envio)
                   type="radio"
                   name={`envio-${email}`}
                   value="envio"
-                  checked={opcionSeleccionada === "envio"}
+                  checked={envios[email] === "envio"}
                   onChange={() => manejarEnvio(email, "envio")}
                   className="mr-2"
                 />
@@ -199,7 +213,7 @@ const opcionSeleccionada = opciones.includes(productosPorEmail[email].envio)
                   type="radio"
                   name={`envio-${email}`}
                   value="retiro"
-                  checked={opcionSeleccionada === "retiro"}
+                  checked={envios[email] === "retiro"}
                   onChange={() => manejarEnvio(email, "retiro")}
                   className="mr-2"
                 />
