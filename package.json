@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-  "build": "vite build",
-   "start": "vite preview"
-
+    "build": "vite build",
+    "start": "vite preview",
+    "build:css": "tailwindcss -i ./src/styles/tailwind.css -o ./dist/output.css"
   },
   "dependencies": {
     "framer-motion": "^11.18.0",

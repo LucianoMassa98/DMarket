@@ -26,22 +26,22 @@ const ProductCard = ({ producto, agregarAlCarrito }) => {
   };
 
   return (
-    <div className="bg-white p-2 rounded-lg ">
+    <div className="bg-gradient-to-br from-white to-gray-100 p-4 rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-300">
       <img
         src={producto.img}
         alt={producto.name}
         className="w-full h-48 object-cover rounded-t-lg"
       />
 
-      <div className="">
-        <h3 className="text-lg font-semibold">{producto.name}</h3>
-        <p className="text-gray-300 text-sm">
-          {producto.category} - {producto.subcategory}
-        </p>
+      <div className="mt-4">
+        <h3 className="text-lg font-semibold text-gray-800">{producto.name}</h3>
         <p className="text-gray-500 text-sm">
+          {producto.brand || "Marca no disponible"}
+        </p>
+        <p className="text-gray-600 text-sm">
           {producto.descripcion || "Descripción no disponible"}
         </p>
-        <p className="text-xl font-bold mt-2">${producto.price || 0}</p>
+        <p className="text-xl font-bold mt-2 text-green-700">${producto.price || 0}</p>
 
         <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-4">
         <div className="flex items-center gap-2">
@@ -60,7 +60,7 @@ const ProductCard = ({ producto, agregarAlCarrito }) => {
           {/* Botón de agregar al carrito */}
           <button
             onClick={handleAgregarAlCarrito}
-            className="bg-green-800 text-white py-2 px-6 rounded-md text-sm sm:text-base hover:bg-green-700 transition-colors duration-200"
+            className="bg-gradient-to-r from-yellow-400 to-green-800 text-white py-2 px-6 rounded-md text-sm sm:text-base hover:from-yellow-500 hover:to-green-900 transition-colors duration-200"
           >
             🛒Agregar
           </button>

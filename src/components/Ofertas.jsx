@@ -8,19 +8,16 @@ const Ofertas = () => {
     desktop: [
       './drink.webp',
       './food.webp',
-     
       './fondo.webp',
     ],
     tablet: [
       './drink.webp',
       './food.webp',
-     
       './fondo.webp',
     ],
     mobile: [
       './drink.webp',
       './food.webp',
-     
       './fondo.webp',
     ],
   };

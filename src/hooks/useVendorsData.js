@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const useVendorsData = () => {
-  const url ="https://docs.google.com/spreadsheets/d/1wjr2AXxzonM3Lul8YbBYE_FmLOG2K9jizHsP6UKzEpE/gviz/tq?tqx=out:json";
+  const url = "https://docs.google.com/spreadsheets/d/1wjr2AXxzonM3Lul8YbBYE_FmLOG2K9jizHsP6UKzEpE/gviz/tq?tqx=out:json";
 
   const [vendorsData, setVendorsData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,6 +37,7 @@ const useVendorsData = () => {
           horarios: row["Horarios"],
           image: row["URL Image"] || "",
           ubicacion: row["URL ubicación"] || "",
+          montoEnvioGratis: row["¿Desde qué monto de compra ofrecerás envío gratis?"] || "",
 
         }));
 

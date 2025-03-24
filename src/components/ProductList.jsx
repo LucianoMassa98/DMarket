@@ -23,19 +23,16 @@ const ProductList = ({ productos, agregarAlCarrito }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 overflow-x-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
         {productosAmostrar.map((producto) => (
-          <div
-            key={producto.name}
-            className="bg-white p-4 rounded-lg shadow-lg"
-          >
+          <div key={producto.id}>
             <ProductCard producto={producto} agregarAlCarrito={agregarAlCarrito} />
           </div>
         ))}
       </div>
 
       {/* Paginación */}
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-6">
         <button
           onClick={() => cambiarPagina(paginaActual - 1)}
           disabled={paginaActual === 1}
