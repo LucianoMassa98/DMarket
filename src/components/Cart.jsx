@@ -309,9 +309,9 @@ const opcionSeleccionada = opciones.includes(envios[email])
                         </button>
                       </div>
                       {loading && (
-                        <div className="loading-overlay">
-                          <LoadingSpinner />
-                        </div>
+                     <div className="flex justify-center items-center min-h-screen bg-black">
+                     <LoadingSpinner />
+                   </div>
                       )}
 
                     </div>
