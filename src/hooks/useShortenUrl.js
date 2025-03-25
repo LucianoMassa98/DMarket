@@ -19,7 +19,7 @@ const useShortenUrl = (mensaje, email) => {
       // Encriptar el mensaje completo
       const mensajeEncriptado = encryptMessage(mensajeCompleto);
 
-      const response = await fetch('https://dmarket.up.railway.app/shorten', {
+      const response = await fetch('https://link.destored.org/shorten', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
