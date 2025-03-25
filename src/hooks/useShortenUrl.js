@@ -1,39 +1,40 @@
-import { useState } from "react";
-import { encryptMessage } from "../utils/encryptionUtils"; // Actualizar la ruta y usar el nombre correcto
+import { useState } from 'react';
+import { encryptMessage } from '../utils/encryptionUtils'; // Cambiar a ES Modules
 
-const useShortenUrl = () => {
+const useShortenUrl = (mensaje, email) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const shortenUrl = async (mensaje, email) => {
+  const shortenUrl = async () => {
     setLoading(true);
     setError(null);
 
     try {
+      // Obtener la hora actual
       const horaActual = new Date().toISOString();
+
+      // Crear el mensaje completo
       const mensajeCompleto = `${mensaje} - ${email} - ${horaActual}`;
+
+      // Encriptar el mensaje completo
       const mensajeEncriptado = encryptMessage(mensajeCompleto);
 
-      console.log("Cuerpo de la solicitud:", { originalUrl: mensajeEncriptado });
-
-      const response = await fetch("https://link.destored.org/shorten", {
-        method: "POST",
+      const response = await fetch('https://link.destored.org/shorten', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ originalUrl: mensajeEncriptado }),
+        body: JSON.stringify({ originalUrl:  "https://dmarket.up.railway.app/note/"+mensajeEncriptado }),
       });
 
-      const data = await response.json();
       if (!response.ok) {
-        console.error("Error del servidor:", data);
-        throw new Error(`Error: ${data.message || response.statusText}`);
+        throw new Error(`Error: ${response.statusText}`);
       }
 
-      return data.shortenedUrl; // Asegurarse de devolver el enlace acortado
+      const data = await response.json();
+      return data;
     } catch (err) {
       setError(err.message);
-      console.error("Error en shortenUrl:", err);
       return null;
     } finally {
       setLoading(false);
