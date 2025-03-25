@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { ShoppingCart, ChevronDown, ArrowLeft,Info } from "lucide-react"; // Iconos
+import { ShoppingCart, ChevronDown, ArrowLeft, Info } from "lucide-react"; // Iconos
+import useShortenUrl from "../hooks/useShortenUrl";
 
 const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { shortenUrl, loading, error } = useShortenUrl(); // Mover el hook aquí
 
   // Estado para manejar el tipo de envío por email
   const [envios, setEnvios] = useState(
@@ -61,26 +63,36 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
 
     mensaje += `%0A💰 *Total:* $${productosPorEmail[email].productos.reduce((acc, p) => acc + p.price * p.cantidad, 0)}%0A`;
 
-    // Usar el método de envío específico para este pedido
     mensaje += `🚚 *Método de envío:* ${envioSeleccionado === "envio" ? "Envío a domicilio" : "Retiro en puerta"}%0A`;
 
     mensaje += `💳 *Forma(s) de pago:* ${formasDePagoSeleccionadas.join(", ")}%0A`;
 
-    // Agregar detalle adicional si existe
     const detalle = productosPorEmail[email].detalle || "";
     if (detalle) {
       mensaje += `%0A🔍 *Detalle:* ${detalle}`;
     }
 
-    // Agregar mensaje según el método de envío específico
     if (envioSeleccionado === "envio") {
       mensaje += `%0A📍 *Nota:* Proporciona tu ubicación si no eres cliente habitual del comerciante.`;
     } else if (envioSeleccionado === "retiro") {
       mensaje += `%0A📍 *Ubicación para retiro:* ${vendor.ubicacion}`;
     }
 
-    const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
-    window.open(url, "_blank");
+    shortenUrl(mensaje, email).then((shortenedUrl) => {
+      if (loading) {
+        console.log("Enviando pedido...");
+        return;
+      }
+
+      if (error) {
+        console.error("Error al enviar el pedido:", error);
+        return;
+      }
+
+      mensaje += `%0A🔗 *Link:* ${shortenedUrl}`;
+      const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
+      window.open(url, "_blank");
+    });
   };
 
   const findVendor = (email) => {
