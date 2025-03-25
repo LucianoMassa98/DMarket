@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ShoppingCart, ChevronDown, ArrowLeft, Info } from "lucide-react"; // Iconos
 import useShortenUrl from "../hooks/useShortenUrl";
+import LoadingSpinner from "./LoadingSpinner"; // Componente de carga
 
 const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -80,7 +81,8 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
 
     shortenUrl(mensaje, email).then((res) => {
       if (loading) {
-        console.log("Enviando pedido...");
+        // quiero cambiar esto
+        <LoadingSpinner />
         return;
       }
 
