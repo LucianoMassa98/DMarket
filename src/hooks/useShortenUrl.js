@@ -1,5 +1,5 @@
 import { useState } from "react";
-import encryptMessage from "../utils/encryptMessage";
+import { encryptMessage } from "../utils/encryptionUtils"; // Actualizar la ruta y usar el nombre correcto
 
 const useShortenUrl = () => {
   const [loading, setLoading] = useState(false);
