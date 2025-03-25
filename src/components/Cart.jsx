@@ -308,7 +308,7 @@ const opcionSeleccionada = opciones.includes(envios[email])
                           Enviar pedido por WhatsApp
                         </button>
                       </div>
-                      {loading && <LoandingSpinner />}
+                      {loading && <LoadingSpinner />}
 
                     </div>
                   );
