@@ -90,7 +90,7 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
       }
 
         console.log("Pedido enviado con éxito:", JSON.stringify(res));
-      mensaje += `%0A🔗 *Link:* ${res.shortUrl}`;
+      mensaje += `%0A🔗 *NotaPedido:* ${"link.destored.org/"+res.shortUrl}`;
       const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
       window.open(url, "_blank");
     });
