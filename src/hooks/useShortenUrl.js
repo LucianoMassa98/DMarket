@@ -1,40 +1,39 @@
-import { useState } from 'react';
-import { encryptMessage } from '../utils/encryptionUtils'; // Cambiar a ES Modules
+import { useState } from "react";
+import encryptMessage from "../utils/encryptMessage";
 
-const useShortenUrl = (mensaje, email) => {
+const useShortenUrl = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const shortenUrl = async () => {
+  const shortenUrl = async (mensaje, email) => {
     setLoading(true);
     setError(null);
 
     try {
-      // Obtener la hora actual
       const horaActual = new Date().toISOString();
-
-      // Crear el mensaje completo
       const mensajeCompleto = `${mensaje} - ${email} - ${horaActual}`;
-
-      // Encriptar el mensaje completo
       const mensajeEncriptado = encryptMessage(mensajeCompleto);
 
-      const response = await fetch('https://link.destored.org/shorten', {
-        method: 'POST',
+      console.log("Cuerpo de la solicitud:", { originalUrl: mensajeEncriptado });
+
+      const response = await fetch("https://link.destored.org/shorten", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ originalUrl: mensajeEncriptado }),
       });
 
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
+        console.error("Error del servidor:", data);
+        throw new Error(`Error: ${data.message || response.statusText}`);
       }
 
-      const data = await response.json();
-      return data;
+      return data.shortenedUrl; // Asegurarse de devolver el enlace acortado
     } catch (err) {
       setError(err.message);
+      console.error("Error en shortenUrl:", err);
       return null;
     } finally {
       setLoading(false);
