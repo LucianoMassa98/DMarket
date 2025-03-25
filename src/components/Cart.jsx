@@ -78,7 +78,7 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
       mensaje += `%0A📍 *Ubicación para retiro:* ${vendor.ubicacion}`;
     }
 
-    shortenUrl(mensaje, email).then((shortenedUrl) => {
+    shortenUrl(mensaje, email).then((res) => {
       if (loading) {
         console.log("Enviando pedido...");
         return;
@@ -89,7 +89,8 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
         return;
       }
 
-      mensaje += `%0A🔗 *Link:* ${shortenedUrl}`;
+        console.log("Pedido enviado con éxito:", JSON.stringify(res));
+      mensaje += `%0A🔗 *Link:* ${res.shortUrl}`;
       const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
       window.open(url, "_blank");
     });
