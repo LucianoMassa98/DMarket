@@ -38,6 +38,9 @@ const useVendorsData = () => {
           image: row["URL Image"] || "",
           ubicacion: row["URL ubicación"] || "",
           montoEnvioGratis: row["¿Desde qué monto de compra ofrecerás envío gratis?"] || "",
+          tarifaKm: row["¿Cuál es el costo por kilómetro adicional?"] || "",
+          
+
 
         }));
 

@@ -7,7 +7,7 @@ const Ofertas = () => {
   const slides = [
     {
       image: './envio.webp',
-      text: 'Envio Gratis desde los $5000',
+      text: 'Envios Gratis desde los $5.000',
       cta: null
     },
     {
@@ -58,7 +58,7 @@ const Ofertas = () => {
               {/* Texto, ícono y CTA opcionales */}
               {slide.text && (
                 <div
-                  className={`absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center ${
+                  className={`absolute inset-0 bg-black bg-opacity-20 flex flex-col items-center ${
                     slide.icon || slide.cta ? 'justify-start pt-12 sm:pt-16 md:pt-20 lg:pt-24' : 'justify-center'
                   } text-center p-6 sm:p-8 md:p-10 lg:p-12`}
                 >

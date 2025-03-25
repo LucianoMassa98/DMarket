@@ -149,6 +149,7 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
                         <div className="mt-2">
                           <p className="text-sm text-gray-400">Días laborables: {findVendor(email)?.dias}</p>
                           <p className="text-sm text-gray-400">Horarios: {findVendor(email)?.horarios}</p>
+
                           {findVendor(email)?.ubicacion && (
                             <p className="text-sm text-blue-500 mt-2 flex items-center">
                               <Info size={16} className="mr-1" />
@@ -157,9 +158,16 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
                               </a>
                             </p>
                           )}
+
                           {findVendor(email)?.montoEnvioGratis && (
                             <p className="text-sm text-green-600 font-semibold mt-2">
                               🚚 Envío gratis a partir de ${findVendor(email)?.montoEnvioGratis}
+                            </p>
+                          )}
+
+                          {findVendor(email)?.tarifaKm && (
+                            <p className="text-sm text-gray-300 mt-2">
+                              🚚 Tarifa por km: ${findVendor(email)?.tarifaKm}
                             </p>
                           )}
                         </div>
@@ -182,68 +190,68 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
                           </li>
                         ))}
                       </ul>
-                   
+                      <div className="mt-4 text-right font-bold text-green-700">
+                        Total del pedido: $
+                        {productosPorEmail[email].productos.reduce((acc, producto) => acc + producto.price * producto.cantidad, 0)}
+                      </div>
 
                       <div className="mt-4">
-  { 
-    (findVendor(email)?.entrega === "Retiro en el local" || 
-    findVendor(email)?.entrega === "Envíos a domicilio" || 
-    findVendor(email)?.entrega === "Ambas opciones") && (() => {
-      // Determinar opciones disponibles
-      const opciones = [];
-if (findVendor(email)?.entrega === "Envíos a domicilio" || findVendor(email)?.entrega === "Ambas opciones") {
-  opciones.push("envio");
-}
-if (findVendor(email)?.entrega === "Retiro en el local" || findVendor(email)?.entrega === "Ambas opciones") {
-  opciones.push("retiro");
-}
+                        { 
+                          (findVendor(email)?.entrega === "Retiro en el local" || 
+                          findVendor(email)?.entrega === "Envíos a domicilio" || 
+                          findVendor(email)?.entrega === "Ambas opciones") && (() => {
+                            // Determinar opciones disponibles
+                            const opciones = [];
+                            if (findVendor(email)?.entrega === "Envíos a domicilio" || findVendor(email)?.entrega === "Ambas opciones") {
+                              opciones.push("envio");
+                            }
+                            if (findVendor(email)?.entrega === "Retiro en el local" || findVendor(email)?.entrega === "Ambas opciones") {
+                              opciones.push("retiro");
+                            }
 
-// Si ya hay una opción seleccionada, mantenerla; si no, usar la primera opción disponible
-const opcionSeleccionada = opciones.includes(envios[email])
-  ? envios[email]
-  : opciones[0];
+                            // Si ya hay una opción seleccionada, mantenerla; si no, usar la primera opción disponible
+                            const opcionSeleccionada = opciones.includes(envios[email])
+                              ? envios[email]
+                              : opciones[0];
 
+                            return (
+                              <>
+                                <label className="block text-lg font-semibold text-green-700">Método de Envío</label>
+                                <div className="mt-2 flex gap-4">
+                                  {opciones.includes("envio") && (
+                                    <label className="flex items-center">
+                                      <input
+                                        type="radio"
+                                        name={`envio-${email}`}
+                                        value="envio"
+                                        checked={envios[email] === "envio"}
+                                        onChange={() => manejarEnvio(email, "envio")}
+                                        className="mr-2"
+                                      />
+                                      Envío
+                                    </label>
+                                  )}
 
-      return (
-        <>
-          <label className="block text-lg font-semibold text-green-700">Método de Envío</label>
-          <div className="mt-2 flex gap-4">
-            {opciones.includes("envio") && (
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name={`envio-${email}`}
-                  value="envio"
-                  checked={envios[email] === "envio"}
-                  onChange={() => manejarEnvio(email, "envio")}
-                  className="mr-2"
-                />
-                Envío
-              </label>
-            )}
-
-            {opciones.includes("retiro") && (
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name={`envio-${email}`}
-                  value="retiro"
-                  checked={envios[email] === "retiro"}
-                  onChange={() => manejarEnvio(email, "retiro")}
-                  className="mr-2"
-                />
-                Retiro en puerta
-              </label>
-            )}
-          </div>
-          
-        </>
-      );
-    })()
-  }
-</div>
-
-
+                                  {opciones.includes("retiro") && (
+                                    <label className="flex items-center">
+                                      <input
+                                        type="radio"
+                                        name={`envio-${email}`}
+                                        value="retiro"
+                                        checked={envios[email] === "retiro"}
+                                        onChange={() => manejarEnvio(email, "retiro")}
+                                        className="mr-2"
+                                      />
+                                      Retiro en puerta
+                                    </label>
+                                  )}
+                                </div>
+                                
+                              </>
+                            );
+                          })()
+                        }
+                      </div>
 
                       <div className="mt-4">
                         <label className="block text-lg font-semibold text-green-700">Tipo de Pago</label>
