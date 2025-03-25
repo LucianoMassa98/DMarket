@@ -79,23 +79,23 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
       mensaje += `%0A📍 *Ubicación para retiro:* ${vendor.ubicacion}`;
     }
 
-    shortenUrl(mensaje, email).then((res) => {
-      if (loading) {
-        // quiero cambiar esto
-        <LoadingSpinner />
-        return;
-      }
+    shortenUrl(mensaje, email)
+  .then((res) => {
+    console.log("Pedido enviado con éxito:", JSON.stringify(res));
+    mensaje += `%0A🔗 *NotaPedido:* ${"link.destored.org/" + res.shortUrl}`;
+    const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
+    window.open(url, "_blank");
+  })
+  .catch((err) => {
+    console.error("Error al enviar el pedido:", err);
+  })
+  .finally(() => {
+    setLoading(true); // Muestra el spinner
 
-      if (error) {
-        console.error("Error al enviar el pedido:", error);
-        return;
-      }
-
-        console.log("Pedido enviado con éxito:", JSON.stringify(res));
-      mensaje += `%0A🔗 *NotaPedido:* ${"link.destored.org/"+res.shortUrl}`;
-      const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
-      window.open(url, "_blank");
-    });
+    setTimeout(() => {
+      setLoading(false); // Oculta el spinner después de unos segundos
+    }, 3000);
+  }); 
   };
 
   const findVendor = (email) => {
@@ -308,6 +308,8 @@ const opcionSeleccionada = opciones.includes(envios[email])
                           Enviar pedido por WhatsApp
                         </button>
                       </div>
+                      {loading && <LoandingSpinner />}
+
                     </div>
                   );
                 })}
