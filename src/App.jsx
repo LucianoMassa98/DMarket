@@ -84,8 +84,9 @@ const App = () => {
           element={
             <main className="bg-secondary min-h-screen">
               {/* <Services /> */} {/* Componente comentado */}
+              
               <Ofertas />
-              <div className="p-6">
+
                 <Filtros
                   filtro={filtro}
                   setFiltro={setFiltro}
@@ -101,7 +102,7 @@ const App = () => {
                 />
                 <ProductList productos={productosFiltrados} agregarAlCarrito={agregarAlCarrito} />
                 <Cart carrito={carrito} eliminarDelCarrito={eliminarDelCarrito} vendors={vendorsData} />
-              </div>
+              
             </main>
           }
         />

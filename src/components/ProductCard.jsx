@@ -43,19 +43,18 @@ const ProductCard = ({ producto, agregarAlCarrito }) => {
         </p>
         <p className="text-xl font-bold mt-2 text-green-700">${producto.price || 0}</p>
 
-        <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-4">
-        <div className="flex items-center gap-2">
-  <input
-    type="number"
-    value={cantidad}
-    onChange={handleCantidadChange}
-    onBlur={handleBlur}
-    className="w-20 sm:w-16 p-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-green-500"
-    min="1"
-  />
-  <span className="text-sm text-gray-600">und.</span>
-</div>
-
+        <div className="mt-4 flex flex-col space-y-4 sm:space-y-4">
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              value={cantidad}
+              onChange={handleCantidadChange}
+              onBlur={handleBlur}
+              className="w-20 sm:w-16 p-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-green-500"
+              min="1"
+            />
+            <span className="text-sm text-gray-600">und.</span>
+          </div>
 
           {/* Botón de agregar al carrito */}
           <button
