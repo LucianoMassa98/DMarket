@@ -76,7 +76,7 @@ const DigitalMarketVendors = () => {
           Aumenta la visibilidad de tus productos en nuestra plataforma. Solicita ubicarlos entre las primeras 16 posiciones con un precio preferencial.
         </p>
         <button
-          onClick={() => openModal("https://forms.gle/tPx7z6JuRQcqJpms5")}
+          onClick={() => openModal("https://forms.gle/FRRZPj2MmFioXZRx9")}
           className="mt-4 px-6 py-3 text-lg bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-200"
         >
           Solicitar Posicionamiento
