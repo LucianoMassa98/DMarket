@@ -47,18 +47,7 @@ export default function Header() {
               Comprar
             </a>
 
-            <a
-              href="/vendors"
-              className="text-black text-3xl md:text-lg py-2 px-4 hover:bg-green-700 rounded transition duration-200"
-            >
-              Vender
-            </a>
-            <a
-              href="/riders"
-              className="text-black text-3xl md:text-lg py-2 px-4 hover:bg-green-700 rounded transition duration-200"
-            >
-              Repartir
-            </a>
+            
 
             <a
               href="/about"

@@ -15,7 +15,8 @@ const UsersDigitalMarkets = () => {
       <header className="text-center py-12">
         <h1 className="text-4xl font-bold text-gray-800">Digital Market</h1>
         <p className="text-lg text-gray-600 mt-2">
-  es una plataforma para comprar, vender y entregar productos a través de <strong>WhatsApp</strong> en negocios de Rawson, San Juan. Los usuarios pueden acceder a catálogos de supermercados, realizar pedidos, ser repartidores o vender productos, gestionando todas las transacciones en WhatsApp, <strong>sin costos</strong> adicionales.
+       Compra y vende productos en Rawson de forma fácil y online.
+
 </p>
       </header>
 
@@ -45,10 +46,9 @@ const UsersDigitalMarkets = () => {
         {/* Buyer Section */}
         <div className="p-6 border rounded-lg shadow-md bg-white flex flex-col items-center">
           <FaShoppingBag className="text-green-500 text-6xl" />
-          <h2 className="text-2xl font-semibold mt-4">Compra Productos Cerca de Ti</h2>
+          <h2 className="text-2xl font-semibold mt-4">Compra Productos</h2>
           <p className="text-gray-600 mt-2 text-center">
-          Agrega los productos que más te interesan al carrito, luego abre el carrito con tus selecciones, elige el método de envío y finaliza el pedido enviando la nota de pedido detallada al negocio correspondiente a través de un mensaje de WhatsApp.
-          </p>
+          Añade productos al carrito, selecciona el método de envío y envía tu pedido al negocio por WhatsApp.          </p>
           <motion.a
             whileHover={{ scale: 1.05 }}
             href="/"
@@ -60,10 +60,11 @@ const UsersDigitalMarkets = () => {
 {/* Vendor Section */}
 <div className="p-6 border rounded-lg shadow-md bg-white flex flex-col items-center">
           <FaStore className="text-green-500 text-6xl" />
-          <h2 className="text-2xl font-semibold mt-4">También puedes ser Vendedor</h2>
+          <h2 className="text-2xl font-semibold mt-4">Vende Productos</h2>
           <p className="text-gray-600 mt-2 text-center">
-            Accede a más oportunidades de negocio: publica tus productos y colabora con los repartidores verificados por Digital Market para que gestionen las entregas por ti.
-          </p>
+
+          Publica tus productos y conectamos tu comercio con el consumidor final, repartidores y mucho más.
+                     </p>
           <motion.a
             whileHover={{ scale: 1.05 }}
             href="/vendors"
@@ -75,9 +76,9 @@ const UsersDigitalMarkets = () => {
         {/* Rider Section */}
         <div className="p-6 border rounded-lg shadow-md bg-white flex flex-col items-center">
           <FaMotorcycle className="text-green-500 text-6xl" />
-          <h2 className="text-2xl font-semibold mt-4">También puedes ser Repartidor</h2>
+          <h2 className="text-2xl font-semibold mt-4">Reparte Pedidos</h2>
           <p className="text-gray-600 mt-2 text-center">
-            Usa el vehículo que elijas sin ningún costo adicional y recibe pagos inmediatos después de cada entrega de los negocios asociados a Digital Market.
+            Usa el vehículo que elijas sin ningún costo adicional y recibe pagos inmediatos después de cada entrega de los comercios adheridos.
           </p>
           <motion.a
             whileHover={{ scale: 1.05 }}

@@ -11,7 +11,6 @@ import LoadingSpinner from "./components/LoadingSpinner"; // Componente de carga
 import Filtros from "./components/Filtros";
 import Ofertas from "./components/Ofertas";
 import ProductList from "./components/ProductList";
-import Services from "./components/Services";
 import Cart from './components/Cart';
 
 // Páginas
@@ -27,23 +26,6 @@ import useVendorsData from "../src/hooks/useVendorsData";
 import useProductFilters from './hooks/useProductFilters';
 
 const App = () => {
-  const { productsData, loading: loadingProducts, error } = useProductsData();
-  const { vendorsData, loading: loadingVendors } = useVendorsData(); // Añadimos loading para vendors
-
-  // Aseguramos que useProductFilters se llame siempre, incluso si los datos aún no están cargados
-  const {
-    filtro,
-    setFiltro,
-    filtroCategoria,
-    setFiltroCategoria,
-    filtroSubcategoria,
-    setFiltroSubcategoria,
-    categorias,
-    subcategorias,
-    productosFiltrados,
-    resetFiltros
-  } = useProductFilters(productsData || []); // Pasamos un array vacío si los datos no están listos
-
   const [carrito, setCarrito] = useState([]);
 
   const agregarAlCarrito = (producto) => {
@@ -63,49 +45,62 @@ const App = () => {
     setCarrito(carrito.filter(producto => producto.id !== productoId));
   };
 
-  if (loadingProducts || loadingVendors) { // Verificamos si cualquiera de los datos está cargando
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-black">
-        <LoadingSpinner />
-      </div>
-    );
-  }
+  const renderHomePage = () => {
+    const { productsData, loading: loadingProducts, error } = useProductsData();
+    const { vendorsData, loading: loadingVendors } = useVendorsData();
 
-  if (error) {
-    return <div className="text-center mt-10 text-red-500">Error al cargar los productos: {error.message}</div>;
-  }
+    const {
+      filtro,
+      setFiltro,
+      filtroCategoria,
+      setFiltroCategoria,
+      filtroSubcategoria,
+      setFiltroSubcategoria,
+      categorias,
+      subcategorias,
+      productosFiltrados,
+      resetFiltros
+    } = useProductFilters(productsData || []);
+
+    if (loadingProducts || loadingVendors) {
+      return (
+        <div className="flex justify-center items-center min-h-screen bg-black">
+          <LoadingSpinner />
+        </div>
+      );
+    }
+
+    if (error) {
+      return <div className="text-center mt-10 text-red-500">Error al cargar los productos: {error.message}</div>;
+    }
+
+    return (
+      <main className="bg-secondary min-h-screen">
+        <Ofertas />
+        <Filtros
+          filtro={filtro}
+          setFiltro={setFiltro}
+          categorias={categorias}
+          filtroCategoria={filtroCategoria}
+          setFiltroCategoria={setFiltroCategoria}
+          subcategorias={subcategorias}
+          filtroSubcategoria={filtroSubcategoria}
+          setFiltroSubcategoria={setFiltroSubcategoria}
+          resetFiltros={resetFiltros}
+          totalResultados={productosFiltrados.length}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-white shadow-md rounded-lg"
+        />
+        <ProductList productos={productosFiltrados} agregarAlCarrito={agregarAlCarrito} />
+        <Cart carrito={carrito} eliminarDelCarrito={eliminarDelCarrito} vendors={vendorsData} />
+      </main>
+    );
+  };
 
   return (
     <Router>
       <Header />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <main className="bg-secondary min-h-screen">
-              {/* <Services /> */} {/* Componente comentado */}
-              
-              <Ofertas />
-
-                <Filtros
-                  filtro={filtro}
-                  setFiltro={setFiltro}
-                  categorias={categorias}
-                  filtroCategoria={filtroCategoria}
-                  setFiltroCategoria={setFiltroCategoria}
-                  subcategorias={subcategorias}
-                  filtroSubcategoria={filtroSubcategoria}
-                  setFiltroSubcategoria={setFiltroSubcategoria}
-                  resetFiltros={resetFiltros}
-                  totalResultados={productosFiltrados.length} // Pasar el número de resultados
-                  className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-white shadow-md rounded-lg" // Mejora de estilos
-                />
-                <ProductList productos={productosFiltrados} agregarAlCarrito={agregarAlCarrito} />
-                <Cart carrito={carrito} eliminarDelCarrito={eliminarDelCarrito} vendors={vendorsData} />
-              
-            </main>
-          }
-        />
+        <Route path="/" element={renderHomePage()} />
         <Route path="/about" element={<About />} />
         <Route path="/users" element={<UsersDigitalMarkets />} />
         <Route path="/vendors" element={<DigitalMarketVendors />} />

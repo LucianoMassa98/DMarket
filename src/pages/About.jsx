@@ -7,7 +7,7 @@ const About = () => {
     {
       nombre: "Luciano",
       apellido: "Massa",
-      imagen: "https://media-eze1-1.cdn.whatsapp.net/v/t61.24694-24/466015148_1331352034527820_4310938951466844413_n.jpg?ccb=11-4&oh=01_Q5AaIWmIVADSUR5dSRYcPStKcorxNmS4sItziSdObzUrX1mj&oe=67E1A03C&_nc_sid=5e03e0&_nc_cat=103",
+      imagen: "https://media-eze1-1.cdn.whatsapp.net/v/t61.24694-24/466015148_1331352034527820_4310938951466844413_n.jpg?ccb=11-4&oh=01_Q5AaIfr4tToKVK3-gp8JBevfREstWlSdvwpW9nIByU1w9vr_&oe=67F59EFC&_nc_sid=5e03e0&_nc_cat=103",
       rol: "Cofundador y CTO",
       mensaje: "Mi misión en Digital Market es conectar al consumidor final con el comercio local de bienes de consumo esenciales, ofreciendo productos de calidad y a los mejores precios. Creo que la tecnología tiene el poder de democratizar el acceso a bienes y servicios, haciendo que cada hogar pueda beneficiarse de la oferta más cercana y accesible. A través de nuestra plataforma, buscamos crear un puente entre los consumidores y los comercios, garantizando un servicio eficiente, justo y transparente para todos."
     }
