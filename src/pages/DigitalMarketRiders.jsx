@@ -8,7 +8,7 @@ const DigitalMarketRiders = () => {
       <header className="text-center py-12">
         <h1 className="text-4xl font-bold text-gray-800">Repartidores</h1>
         <p className="text-lg text-gray-600 mt-2">
-        Trabaja como repartidor para comercios adheridos sin costos. Te conectamos con uno o más negocios seleccionados y puedes solicitar un cambio cuando lo desees.
+        Trabaja como repartidor para comercios adheridos sin costo. Te conectamos con uno o más negocios seleccionados y puedes solicitar un cambio en cualquier momento.
         </p>
       </header>
 
