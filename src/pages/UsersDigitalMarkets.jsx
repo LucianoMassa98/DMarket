@@ -91,22 +91,7 @@ const UsersDigitalMarkets = () => {
 
         
 
-        {/* Support Section */}
-        <div className="p-6 border rounded-lg shadow-md bg-white flex flex-col items-center">
-          <FaHeadset className="text-green-500 text-6xl" />
-          <h2 className="text-2xl font-semibold mt-4">Contacto y Soporte</h2>
-          <p className="text-gray-600 mt-2 text-center">
-            ¿Tienes dudas o necesitas ayuda? Nuestro equipo de soporte está disponible para asistirte en cualquier momento.
-          </p>
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            href="https://wa.me/5492643183732?text=Hola%2C%20necesito%20soporte%20para%20riders.%20Mi%20inconveniente%20es%3A%20______"
-            className="mt-4 px-6 py-3 text-lg bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-200"
-          >
-            Contactar Soporte
-          </motion.a>
-        </div>
-
+        
       </section>
     </div>
   );
