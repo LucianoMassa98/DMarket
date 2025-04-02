@@ -24,19 +24,21 @@ const fetchProductsData = async (url) => {
       return rowData;
     });
 
-    const formattedData = rows.map((row, index) => ({
-      id: row["Marca temporal"] || `producto-${index}`, // Generar un id único si no existe
-      brand: row["Marca"] || "",
-      category: row["Categoría"] || "",
-      subcategory: row["Sub Categoría"] || "",
-      descripcion: row["Descripción"] || "",
-      estado: row["Estado"] || "",
-      name: row["Nombre"] || "",
-      price: row["Precio"] || "",
-      img: row["URL Image"] || LOGO,
-      email: row["Dirección de correo electrónico"] || "",
-      originalOrder: index, // Nuevo campo para preservar el orden original
-    }));
+    const formattedData = rows
+      .filter((row) => row["Precio"] && row["Precio"] !== 0) // Filtrar productos con precio diferente de cero
+      .map((row, index) => ({
+        id: row["Marca temporal"] || `producto-${index}`, // Generar un id único si no existe
+        brand: row["Marca"] || "",
+        category: row["Categoría"] || "",
+        subcategory: row["Sub Categoría"] || "",
+        descripcion: row["Descripción"] || "",
+        estado: row["Estado"] || "",
+        name: row["Nombre"] || "",
+        price: row["Precio"] || "",
+        img: row["URL Image"] || LOGO,
+        email: row["Dirección de correo electrónico"] || "",
+        originalOrder: index, // Nuevo campo para preservar el orden original
+      }));
 
     cachedData = formattedData;
     cachedLoading = false;

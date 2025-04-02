@@ -37,6 +37,7 @@ const useProductFilters = (productos) => {
             producto.brand,
             producto.email
           ].map(valor => valor?.toString().trim().toLowerCase());
+        
           return valores.some(valor => valor.includes(filtroNormalizado));
         })
       : productos;
