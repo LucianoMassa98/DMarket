@@ -77,7 +77,6 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
     } else if (envioSeleccionado === "retiro") {
       mensaje += `%0A📍 *Ubicación para retiro:* ${vendor.ubicacion}`;
     }
-      alert(mensaje);
     shortenUrl(mensaje, email)
   .then((res) => {
     console.log("Pedido enviado con éxito:", JSON.stringify(res));
