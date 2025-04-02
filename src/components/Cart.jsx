@@ -40,7 +40,6 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
       console.error("Vendor no encontrado.");
       return;
     }
-
     const envioSeleccionado = envios[email];
     const formasDePagoSeleccionadas = Array.from(
       document.querySelectorAll(`input[name="pago-${email}"]:checked`)
@@ -78,7 +77,7 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
     } else if (envioSeleccionado === "retiro") {
       mensaje += `%0A📍 *Ubicación para retiro:* ${vendor.ubicacion}`;
     }
-
+      alert(mensaje);
     shortenUrl(mensaje, email)
   .then((res) => {
     console.log("Pedido enviado con éxito:", JSON.stringify(res));
@@ -325,9 +324,7 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
                     </div>
                   );
                 })}
-                <p className="text-sm text-gray-500 text-center mt-6">
-                  Si tu pedido no tiene un envío gratis, el costo es de $600 x km desde el local del comerciante hacia tu punto de entrega.
-                </p>
+                
               </div>
             ) : (
               <p className="text-gray-500 text-center mt-6">No hay productos en el carrito.</p>

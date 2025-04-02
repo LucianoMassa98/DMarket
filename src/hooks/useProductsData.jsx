@@ -25,7 +25,7 @@ const fetchProductsData = async (url) => {
     });
 
     const formattedData = rows
-      .filter((row) => row["Precio"] && row["Precio"] !== 0) // Filtrar productos con precio diferente de cero
+      .filter((row) => row["Precio"] && row["Precio"] !== 0 && row["Dirección de correo electrónico"]) // Filtrar productos con precio diferente de cero
       .map((row, index) => ({
         id: row["Marca temporal"] || `producto-${index}`, // Generar un id único si no existe
         brand: row["Marca"] || "",

@@ -5,11 +5,17 @@ const useShortenUrl = (mensaje, email) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  console.log('Mensaje:', mensaje);
   const shortenUrl = async () => {
     setLoading(true);
     setError(null);
 
     try {
+      // Validar que mensaje y email no sean nulos
+      if (!mensaje || !email) {
+        throw new Error('El mensaje y el email no pueden ser nulos.');
+      }
+
       // Obtener la hora actual
       const horaActual = new Date().toISOString();
 
@@ -18,6 +24,9 @@ const useShortenUrl = (mensaje, email) => {
 
       // Encriptar el mensaje completo
       const mensajeEncriptado = encryptMessage(mensajeCompleto);
+
+      // remplazar / con _
+      const mensajeEncriptadoModificado = mensajeEncriptado.replace(/\//g, '_');
 
       const response = await fetch('https://link.destored.org/shorten', {
         method: 'POST',
