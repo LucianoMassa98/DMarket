@@ -5,7 +5,8 @@ import LoadingSpinner from "./LoadingSpinner"; // Componente de carga
 
 const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { shortenUrl, loading, error } = useShortenUrl(); // Mover el hook aquí
+  const { shortenUrl, loading: shortenLoading, error } = useShortenUrl(); // Renombrar loading para evitar conflicto
+  const [loading, setLoading] = useState(false); // Estado para manejar el spinner de carga
 
   // Estado para manejar el tipo de envío por email
   const [envios, setEnvios] = useState(
@@ -40,6 +41,7 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
       console.error("Vendor no encontrado.");
       return;
     }
+
     const envioSeleccionado = envios[email];
     const formasDePagoSeleccionadas = Array.from(
       document.querySelectorAll(`input[name="pago-${email}"]:checked`)
@@ -57,17 +59,18 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
 
     let mensaje = "🛒 *Pedido realizado desde Digital Market*%0A%0A";
 
-    productosPorEmail[email].productos.forEach((producto) => {
+    const productos = productosPorEmail[email]?.productos || [];
+    productos.forEach((producto) => {
       mensaje += `📌 ${producto.name + " " + producto.brand + " " + producto.descripcion} x${producto.cantidad} / $${producto.price} - $${producto.price * producto.cantidad}%0A`;
     });
 
-    mensaje += `%0A💰 *Total:* $${productosPorEmail[email].productos.reduce((acc, p) => acc + p.price * p.cantidad, 0)}%0A`;
+    mensaje += `%0A💰 *Total:* $${productos.reduce((acc, p) => acc + p.price * p.cantidad, 0)}%0A`;
 
     mensaje += `🚚 *Método de envío:* ${envioSeleccionado === "envio" ? "Envío a domicilio" : "Retiro en puerta"}%0A`;
 
     mensaje += `💳 *Forma(s) de pago:* ${formasDePagoSeleccionadas.join(", ")}%0A`;
 
-    const detalle = productosPorEmail[email].detalle || "";
+    const detalle = productosPorEmail[email]?.detalle || "";
     if (detalle) {
       mensaje += `%0A🔍 *Detalle:* ${detalle}`;
     }
@@ -77,23 +80,24 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
     } else if (envioSeleccionado === "retiro") {
       mensaje += `%0A📍 *Ubicación para retiro:* ${vendor.ubicacion}`;
     }
-    shortenUrl(mensaje, email)
-  .then((res) => {
-    console.log("Pedido enviado con éxito:", JSON.stringify(res));
-    mensaje += `%0A🔗 *NotaPedido:* ${"link.destored.org/" + res.shortUrl}`;
-    const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
-    window.open(url, "_blank");
-  })
-  .catch((err) => {
-    console.error("Error al enviar el pedido:", err);
-  })
-  .finally(() => {
-    setLoading(true); // Muestra el spinner
 
-    setTimeout(() => {
-      setLoading(false); // Oculta el spinner después de unos segundos
-    }, 3000);
-  }); 
+    setLoading(true); // Mostrar spinner de carga
+    shortenUrl(mensaje, email)
+      .then((res) => {
+        if (!res || !res.shortUrl) {
+          throw new Error("shortUrl no válido");
+        }
+        mensaje += `%0A🔗 *NotaPedido:* ${"link.destored.org/" + res.shortUrl}`;
+        const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
+        window.open(url, "_blank");
+      })
+      .catch((err) => {
+        console.error("Error al enviar el pedido:", err);
+        alert("Hubo un error al generar el enlace corto. Inténtalo de nuevo.");
+      })
+      .finally(() => {
+        setLoading(false); // Ocultar spinner de carga
+      });
   };
 
   const findVendor = (email) => {
