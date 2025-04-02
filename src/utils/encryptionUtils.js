@@ -19,7 +19,10 @@ function encryptMessage(message) {
  * @returns {string} - El mensaje desencriptado.
  */
 function decryptMessage(encryptedMessage) {
-    const decrypted = CryptoJS.AES.decrypt(encryptedMessage, key, { iv: iv });
+
+    const encriptadoMsj = encryptedMessage.replace(/_/g, '/'); // Reemplaza '_' con '/'
+    const decrypted = CryptoJS.AES.decrypt(encriptadoMsj, key, { iv: iv });
+    
     return decrypted.toString(CryptoJS.enc.Utf8);
 }
 
