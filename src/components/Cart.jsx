@@ -85,7 +85,9 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
     shortenUrl(mensaje, email)
       .then((res) => {
         if (!res || !res.shortUrl) {
-          throw new Error("shortUrl no válido");
+          console.error("Error: El enlace corto no se generó correctamente.");
+          alert("Hubo un error al generar el enlace corto. Inténtalo de nuevo.");
+          return; // Salir de la función si no hay un shortUrl válido
         }
         mensaje += `%0A🔗 *NotaPedido:* ${"link.destored.org/" + res.shortUrl}`;
         const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
