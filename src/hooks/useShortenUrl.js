@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { encryptMessage } from '../utils/encryptionUtils'; // Cambiar a ES Modules
-
 const useShortenUrl = (mensaje, email) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  console.log('Mensaje:', mensaje);
   const shortenUrl = async () => {
     setLoading(true);
     setError(null);

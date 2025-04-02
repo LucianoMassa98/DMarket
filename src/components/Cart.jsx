@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ShoppingCart, ChevronDown, ArrowLeft, Info } from "lucide-react"; // Iconos
 import useShortenUrl from "../hooks/useShortenUrl";
 import LoadingSpinner from "./LoadingSpinner"; // Componente de carga
+// Error: El enlace corto no se generó correctamente.
 
 const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +57,7 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
       alert("Por favor, selecciona al menos una forma de pago.");
       return;
     }
-
+    setLoading(true);
     let mensaje = "🛒 *Pedido realizado desde Digital Market*%0A%0A";
 
     const productos = productosPorEmail[email]?.productos || [];
@@ -76,12 +77,15 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
     }
 
     if (envioSeleccionado === "envio") {
-      mensaje += `%0A📍 *Nota:* Proporciona tu ubicación si no eres cliente habitual del comerciante.`;
     } else if (envioSeleccionado === "retiro") {
       mensaje += `%0A📍 *Ubicación para retiro:* ${vendor.ubicacion}`;
     }
+    const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
+        window.open(url, "_blank");
+    setLoading(false); // Mostrar spinner de carga
 
-    setLoading(true); // Mostrar spinner de carga
+
+    /*/ Generar enlace corto
     shortenUrl(mensaje, email)
       .then((res) => {
         if (!res || !res.shortUrl) {
@@ -90,8 +94,7 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
           return; // Salir de la función si no hay un shortUrl válido
         }
         mensaje += `%0A🔗 *NotaPedido:* ${"link.destored.org/" + res.shortUrl}`;
-        const url = `https://wa.me/${vendor.whatsapp}?text=${mensaje}`;
-        window.open(url, "_blank");
+    
       })
       .catch((err) => {
         console.error("Error al enviar el pedido:", err);
@@ -100,6 +103,8 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
       .finally(() => {
         setLoading(false); // Ocultar spinner de carga
       });
+
+      */
   };
 
   const findVendor = (email) => {
