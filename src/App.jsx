@@ -20,6 +20,7 @@ import DigitalMarketRiders from "./pages/DigitalMarketRiders";
 import UsersDigitalMarkets from "./pages/UsersDigitalMarkets";
 import AddToHome from "./pages/AddToHome";
 import Support from "./pages/Support"; // Importar la nueva página de soporte
+import Note from "./pages/Note"; // Importar la nueva página Note
 
 // Hooks personalizados
 import useProductsData from "../src/hooks/useProductsData";
@@ -108,6 +109,7 @@ const App = () => {
         <Route path="/riders" element={<DigitalMarketRiders />} />
         <Route path="/app" element={<AddToHome />} />
         <Route path="/support" element={<Support />} /> {/* Nueva ruta para soporte */}
+        <Route path="/note/:tokenId" element={<Note />} /> {/* Nueva ruta para Note */}
       </Routes>
       <Footer />
     </Router>

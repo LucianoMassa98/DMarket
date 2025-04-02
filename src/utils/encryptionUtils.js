@@ -10,7 +10,7 @@ const iv = CryptoJS.enc.Utf8.parse('1234567890123456'); // IV de 16 bytes
  */
 function encryptMessage(message) {
     const encrypted = CryptoJS.AES.encrypt(message, key, { iv: iv });
-    return encrypted.toString();
+    return encrypted.toString().replace(/\//g, '_'); // Reemplaza '/' con '_'
 }
 
 /**
