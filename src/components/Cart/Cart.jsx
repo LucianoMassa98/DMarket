@@ -110,9 +110,33 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
                   return (
                     <div key={email} className="border p-4 rounded-lg shadow">
                       <h3 className="text-lg font-bold text-green-700">Pedido para {vendor.nombre}</h3>
+                      
+                      <h3 className="text-lg font-bold text-green-500 flex items-center">
+                        <svg className="w-5 h-5 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2 9 3.343 9 5s1.343 3 3 3zm0 0v13m0 0H9m3 0h3" />
+                        </svg>
+                        Envíos Gratis desde los ${vendor.montoEnvioGratis}
+                      </h3>
+                      <h3 className="text-lg font-bold text-gray-400 flex items-center">
+                        <svg className="w-5 h-5 text-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16l-4-4m0 0l4-4m-4 4h16" />
+                        </svg>
+                        Tarifa de ${vendor.tarifaKm} / Km
+                      </h3>
+
                       <ul>
                         {productosPorEmail[email].productos.map((producto, index) => (
-                          <CartItem key={index} producto={producto} eliminarDelCarrito={eliminarDelCarrito} />
+                          <li key={index} className="flex justify-between items-center py-2 border-b">
+                            <span className="text-gray-700">
+                              {producto.name} {producto.brand} - {producto.cantidad} - ${producto.price} - ${producto.price * producto.cantidad}
+                            </span>
+                            <button
+                              onClick={() => eliminarDelCarrito(producto.id)}
+                              className="text-red-500 hover:underline"
+                            >
+                              Eliminar
+                            </button>
+                          </li>
                         ))}
                       </ul>
                       <div className="mt-4 text-right font-bold text-green-700">
