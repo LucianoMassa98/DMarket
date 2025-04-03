@@ -11,7 +11,7 @@ import LoadingSpinner from "./components/LoadingSpinner"; // Componente de carga
 import Filtros from "./components/Filtros";
 import Ofertas from "./components/Ofertas";
 import ProductList from "./components/ProductList";
-import Cart from './components/Cart';
+import Cart from './components/Cart/Cart';
 
 // Páginas
 import About from "./pages/About";
@@ -26,6 +26,10 @@ import Note from "./pages/Note"; // Importar la nueva página Note
 import useProductsData from "../src/hooks/useProductsData";
 import useVendorsData from "../src/hooks/useVendorsData";
 import useProductFilters from './hooks/useProductFilters';
+
+// Librerías para generar PDF
+import jsPDF from "jspdf";
+import "jspdf-autotable"; // Asegúrate de que esta línea esté presente y correctamente colocada
 
 const App = () => {
   const [carrito, setCarrito] = useState([]);
@@ -45,6 +49,24 @@ const App = () => {
 
   const eliminarDelCarrito = (productoId) => {
     setCarrito(carrito.filter(producto => producto.id !== productoId));
+  };
+
+  const generarPDF = (productsData) => {
+    const doc = new jsPDF();
+    const productosTabla = productsData.map((producto, index) => [
+      producto.name,
+      producto.descripcion,
+      producto.category,
+      producto.price,
+    ]);
+
+    doc.text("Lista de Productos", 14, 10);
+    doc.autoTable({
+      head: [["Nombre","Descripcion", "Categoría", "Precio"]],
+      body: productosTabla,
+    });
+
+    doc.save("productos.pdf");
   };
 
   const renderHomePage = () => {
@@ -94,6 +116,14 @@ const App = () => {
         />
         <ProductList productos={productosFiltrados} agregarAlCarrito={agregarAlCarrito} />
         <Cart carrito={carrito} eliminarDelCarrito={eliminarDelCarrito} vendors={vendorsData} />
+        <div className="text-center mt-4">
+          <button
+            onClick={() => generarPDF(productsData || [])}
+            className="bg-green-500  mb-4 text-white px-4 py-2 rounded hover:bg-green-600"
+          >
+            PDF Productos
+          </button>
+        </div>
       </main>
     );
   };
