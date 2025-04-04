@@ -128,7 +128,7 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
                           className="w-16 h-16 rounded-full object-cover"
                         />
                         <div>
-                          <h3 className="text-lg font-bold text-green-700">Pedido para {vendor.nombre}</h3>
+                          <h3 className="text-lg font-bold text-green-700">Comerciante: {vendor.nombre}</h3>
                           {vendor.ubicacion && (
                             <p className="text-blue-500 text-sm flex items-center">
                               <svg
