@@ -1,8 +1,5 @@
 import { encryptMessage } from "./encryptionUtils"; // Cambiar a ES Modules
-
-import useShortenUrl from "../hooks/useShortenUrl"; // Cambiar a ES Modules
-
-
+import { shortenUrl } from "../hooks/useShortenUrl"; // Usar la función independiente
 
 export const generarMensajeWhatsApp = async (
   productos,
@@ -29,23 +26,18 @@ export const generarMensajeWhatsApp = async (
     mensaje += `%0A📍 *Ubicación para retiro:* ${vendor.ubicacion}`;
   }
 
-// add link to shorten url
   const mensajeEncriptado = encryptMessage(mensaje);
-// use short url
-  try{
-const { shortenUrl, loading, error } = useShortenUrl();
-  const shortenedUrl = await shortenUrl(mensajeEncriptado);
-  if (shortenedUrl) {
-    mensaje += `%0A%0A*Link para ver el pedido:* ${shortenedUrl}`;
-  } else {
-    console.log("Error al acortar la URL:", error);
+
+  try {
+    const shortenedUrl = await shortenUrl(mensajeEncriptado); // Usar la función independiente
+    if (shortenedUrl) {
+      mensaje += `%0A%0A*Link para ver el pedido:* ${shortenedUrl}`;
+    } else {
+      console.error("Error al acortar la URL");
+    }
+  } catch (err) {
+    console.error("Error al generar el enlace acortado:", err);
   }
-  }catch(err){
-    console.log(err)
-  }
-
-
-
 
   return mensaje;
 };
