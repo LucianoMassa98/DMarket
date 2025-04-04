@@ -1,37 +1,22 @@
 import { useState } from 'react';
 import { encryptMessage } from '../utils/encryptionUtils'; // Cambiar a ES Modules
-const useShortenUrl = (mensaje, email) => {
+
+const useShortenUrl = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const shortenUrl = async () => {
+  const shortenUrl = async (mensaje) => {
     setLoading(true);
     setError(null);
 
     try {
-      // Validar que mensaje y email no sean nulos
-      if (!mensaje || !email) {
-        throw new Error('El mensaje y el email no pueden ser nulos.');
-      }
-
-      // Obtener la hora actual
-      const horaActual = new Date().toISOString();
-
-      // Crear el mensaje completo
-      const mensajeCompleto = `${mensaje} - ${email} - ${horaActual}`;
-
-      // Encriptar el mensaje completo
-      const mensajeEncriptado = encryptMessage(mensajeCompleto);
-
-      // remplazar / con _
-      const mensajeEncriptadoModificado = mensajeEncriptado.replace(/\//g, '_');
-
+     
       const response = await fetch('https://link.destored.org/shorten', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ originalUrl:  "https://dmarket.up.railway.app/note/"+mensajeEncriptado }),
+        body: JSON.stringify({ originalUrl: "https://dmarket.up.railway.app/note/" + mensaje }),
       });
 
       if (!response.ok) {
@@ -47,7 +32,6 @@ const useShortenUrl = (mensaje, email) => {
       setLoading(false);
     }
   };
-
   return { shortenUrl, loading, error };
 };
 

@@ -55,14 +55,14 @@ const App = () => {
     const doc = new jsPDF();
     const productosTabla = productsData.map((producto, index) => [
       producto.name,
+      producto.brand,
       producto.descripcion,
-      producto.category,
       producto.price,
     ]);
 
     doc.text("Lista de Productos", 14, 10);
     doc.autoTable({
-      head: [["Nombre","Descripcion", "Categoría", "Precio"]],
+      head: [["Nombre", "Marca","Descripcion", "Precio"]],
       body: productosTabla,
     });
 
@@ -119,7 +119,7 @@ const App = () => {
         <div className="text-center mt-4">
           <button
             onClick={() => generarPDF(productsData || [])}
-            className="bg-green-500  mb-4 text-white px-4 py-2 rounded hover:bg-green-600"
+            className="bg-black  mb-4 text-white px-4 py-2 rounded hover:bg-green-600"
           >
             PDF Productos
           </button>
