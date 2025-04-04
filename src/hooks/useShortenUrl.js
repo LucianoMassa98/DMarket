@@ -3,19 +3,24 @@ import { useState } from 'react';
 // Función independiente para acortar URLs
 export const shortenUrl = async (mensaje) => {
   try {
+
+    console.log("hola")
+
     const response = await fetch('https://link.destored.org/shorten', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ originalUrl: `https://dmarket.up.railway.app/note/${mensaje}` }),
+      body: JSON.stringify({ originalurl: `https://dmarket.up.railway.app/note/${mensaje}` }),
     });
+    console.log("adios")
 
     if (!response.ok) {
       throw new Error(`Error: ${response.statusText}`);
     }
-
+    
     const data = await response.json();
+    console.log(data)
     return data.shortenedUrl; // Devuelve directamente el enlace acortado
   } catch (err) {
     console.error("Error al acortar la URL:", err.message);

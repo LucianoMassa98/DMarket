@@ -34,7 +34,9 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
   };
 
   const eliminarPedidoCompleto = (email) => {
-    setCarrito((prevCarrito) => prevCarrito.filter((producto) => producto.email !== email));
+    carrito
+      .filter((producto) => producto.email === email)
+      .forEach((producto) => eliminarDelCarrito(producto.id));
     setModalConfirm({ isOpen: false, email: null });
   };
 
@@ -117,7 +119,7 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
                       {/* Botón para eliminar todo el pedido */}
                       <button
                         onClick={() => setModalConfirm({ isOpen: true, email })}
-                        className="absolute top-4 right-4 text-red-500 hover:text-red-700"
+                        className="absolute top-1 right-1 text-red-500 hover:text-red-700 mb-6"
                       >
                         <X size={24} />
                       </button>
@@ -146,6 +148,11 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
                                 />
                               </svg>
                               {vendor.ubicacion}
+                            </p>
+                          )}
+                          {vendor.dias && vendor.horarios && (
+                            <p className="text-gray-500 text-sm mt-1">
+                              <strong>Días:</strong> {vendor.dias} <strong>Horarios:</strong> {vendor.horarios}
                             </p>
                           )}
                         </div>
