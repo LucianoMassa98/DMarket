@@ -139,7 +139,7 @@ const App = () => {
         <Route path="/riders" element={<DigitalMarketRiders />} />
         <Route path="/app" element={<AddToHome />} />
         <Route path="/support" element={<Support />} /> {/* Nueva ruta para soporte */}
-        <Route path="/note/:tokenId" element={<Note />} /> {/* Nueva ruta para Note */}
+        <Route path="/note/:token" element={<Note />} /> {/* Nueva ruta para Note */}
       </Routes>
       <Footer />
     </Router>

@@ -1,29 +1,40 @@
-import CryptoJS from 'crypto-js';
+import { jwtVerify, SignJWT } from 'jose';
 
-const key = CryptoJS.enc.Utf8.parse('12345678901234567890123456789012'); // Clave de 32 bytes
-const iv = CryptoJS.enc.Utf8.parse('1234567890123456'); // IV de 16 bytes
+const jwtSecret = new TextEncoder().encode('123456789'); // Cambiar por una clave secreta segura
 
 /**
- * Encripta un mensaje.
- * @param {string} message - El mensaje a encriptar.
- * @returns {string} - El mensaje encriptado en formato base64.
+ * Genera un token JWT.
+ * @param {string} message - El mensaje a incluir en el token.
+ * @returns {Promise<string>} - Token JWT.
  */
-function encryptMessage(message) {
-    const encrypted = CryptoJS.AES.encrypt(message, key, { iv: iv });
-    return encrypted.toString().replace(/\//g, '_'); // Reemplaza '/' con '_'
+async function encryptMessage(message) {
+    return new SignJWT({ data: message })
+        .setProtectedHeader({ alg: 'HS256' })
+        .setExpirationTime('1h')
+        .sign(jwtSecret);
 }
 
 /**
- * Desencripta un mensaje.
- * @param {string} encryptedMessage - El mensaje encriptado en formato base64.
- * @returns {string} - El mensaje desencriptado.
+ * Verifica y decodifica un token JWT.
+ * @param {string} token - Token JWT.
+ * @returns {Promise<string>} - Mensaje original.
  */
-function decryptMessage(encryptedMessage) {
-
-    const encriptadoMsj = encryptedMessage.replace(/_/g, '/'); // Reemplaza '_' con '/'
-    const decrypted = CryptoJS.AES.decrypt(encriptadoMsj, key, { iv: iv });
-    
-    return decrypted.toString(CryptoJS.enc.Utf8);
+async function decryptMessage(token) {
+    try {
+        const { payload } = await jwtVerify(token, jwtSecret);
+        return payload.data;
+    } catch (error) {
+        console.error('Error al verificar el token JWT:', error.message);
+        return '';
+    }
 }
+
+async function generarMensaje() {
+    const token = await encryptMessage('Tu mensaje aquí');
+    const mensaje = `*Forma(s) de pago:* transferencia *Link para ver el pedido:* dmarket.up.railway.app/note/${token}`;
+    console.log(mensaje);
+}
+
+generarMensaje();
 
 export { encryptMessage, decryptMessage };

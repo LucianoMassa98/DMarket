@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { ArrowLeft, ShoppingCart, Trash2, X } from "lucide-react"; // Importar Trash2
+import { ArrowLeft, ShoppingCart, Trash2, X, FileText } from "lucide-react"; // Importar Trash2 y FileText
+import { jsPDF } from "jspdf"; // Importar jsPDF
 import CartHeader from "./CartHeader";
 import CartItem from "./CartItem";
 import ShippingMethod from "./ShippingMethod";
@@ -7,6 +8,7 @@ import PaymentMethod from "./PaymentMethod";
 import AdditionalDetails from "./AdditionalDetails";
 import LoadingSpinner from "../LoadingSpinner";
 import { generarMensajeWhatsApp } from "../../utils/whatsappUtils"; // Importar la nueva función
+import GeneratePDFButton from "./GeneratePDFButton"; // Importar el nuevo componente
 
 const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,9 +36,8 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
   };
 
   const eliminarPedidoCompleto = (email) => {
-    carrito
-      .filter((producto) => producto.email === email)
-      .forEach((producto) => eliminarDelCarrito(producto.id));
+    const productosAEliminar = carrito.filter((producto) => producto.email === email);
+    productosAEliminar.forEach((producto) => eliminarDelCarrito(producto.id));
     setModalConfirm({ isOpen: false, email: null });
   };
 
@@ -80,6 +81,58 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const generarPDF = (email) => {
+    const vendor = vendors.find((v) => v.correo === email);
+    if (!vendor) {
+      console.error("Vendor no encontrado.");
+      return;
+    }
+
+    const envioSeleccionado = envios[email];
+    const formasDePagoSeleccionadas = Array.from(
+      document.querySelectorAll(`input[name="pago-${email}"]:checked`)
+    ).map((input) => input.value);
+
+    if (!envioSeleccionado) {
+      alert("Por favor, selecciona un método de envío antes de generar el PDF.");
+      return;
+    }
+
+    if (formasDePagoSeleccionadas.length === 0) {
+      alert("Por favor, selecciona al menos una forma de pago antes de generar el PDF.");
+      return;
+    }
+
+    const productos = productosPorEmail[email]?.productos || [];
+    const total = productos.reduce((acc, producto) => acc + producto.price * producto.cantidad, 0);
+    const horaRealizada = new Date().toLocaleString();
+
+    const doc = new jsPDF();
+    doc.setFontSize(18);
+    doc.setTextColor("#333");
+    doc.text("Detalles del Pedido", 105, 20, { align: "center" });
+
+    doc.setFontSize(12);
+    doc.text(`Comerciante: ${vendor?.nombre || "N/A"}`, 10, 40);
+    doc.text(`Hora realizada: ${horaRealizada}`, 10, 50);
+    doc.text(`Método de envío: ${envioSeleccionado || "N/A"}`, 10, 60);
+    doc.text("Productos:", 10, 70);
+
+    let y = 80;
+    productos.forEach((producto, index) => {
+      doc.text(
+        `${index + 1}. ${producto.name} (${producto.brand}) - Cantidad: ${producto.cantidad} - Precio: $${producto.price} - Total: $${producto.price * producto.cantidad}`,
+        10,
+        y
+      );
+      y += 10;
+    });
+
+    doc.text(`Total del pedido: $${total}`, 10, y + 10);
+
+    doc.save(`Pedido_${vendor?.nombre || "sin_nombre"}.pdf`);
   };
 
   const findVendor = (email) => vendors.find((v) => v.correo === email);
@@ -220,12 +273,36 @@ const Cart = ({ carrito, eliminarDelCarrito, vendors }) => {
                       />
                       <PaymentMethod email={email} />
                       <AdditionalDetails email={email} productosPorEmail={productosPorEmail} />
-                      <div className="mt-4 text-center">
+                      <div className="mt-4 flex justify-center space-x-4">
                         <button
                           onClick={() => enviarPedidoWhatsApp(email)}
-                          className="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition"
+                          className="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition flex items-center"
                         >
-                          Enviar pedido por WhatsApp
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5 mr-2"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            stroke="none"
+                          >
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.115 1.516 5.857L0 24l6.293-1.516A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm6.076 17.076c-.253.705-1.482 1.353-2.04 1.435-.518.075-1.19.106-3.785-1.61-3.18-2.11-5.26-7.48-5.42-7.83-.16-.35-1.29-2.91-1.24-3.91.05-1 .65-1.48.88-1.68.23-.2.51-.25.68-.25h.49c.16 0 .37-.03.57.43.2.46.76 1.85.83 1.98.07.13.12.3.02.48-.1.18-.15.3-.3.46-.15.15-.3.34-.43.46-.15.15-.3.3-.13.58.18.3.79 1.3 1.7 2.1 1.17 1.03 2.1 1.35 2.4 1.5.3.15.47.13.64-.08.18-.2.75-.88.95-1.18.2-.3.4-.25.68-.15.28.1 1.78.84 2.08.99.3.15.5.23.57.36.08.13.08.74-.18 1.45z" />
+                          </svg>
+                          Enviar pedido
+                        </button>
+                        <button
+                          onClick={() => generarPDF(email)}
+                          className="bg-black text-white py-2 px-4 rounded-md hover:bg-black transition flex items-center"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5 mr-2"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            stroke="none"
+                          >
+                            <path d="M19 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 18H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V8h10v4z" />
+                          </svg>
+                          Generar PDF
                         </button>
                       </div>
                       {loading && (

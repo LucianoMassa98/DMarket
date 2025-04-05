@@ -26,18 +26,15 @@ export const generarMensajeWhatsApp = async (
     mensaje += `%0A📍 *Ubicación para retiro:* ${vendor.ubicacion}`;
   }
 
-  const mensajeEncriptado = encryptMessage(mensaje);
-
+/* 
   try {
-    const shortenedUrl = await shortenUrl(mensajeEncriptado); // Usar la función independiente
-    if (shortenedUrl) {
-      mensaje += `%0A%0A*Link para ver el pedido:* ${shortenedUrl}`;
-    } else {
-      console.error("Error al acortar la URL");
-    }
+    const mensajeEncriptado = await encryptMessage(mensaje);
+    mensaje += `%0A%0A*Link para ver el pedido:* dmarket.up.railway.app/note/${mensajeEncriptado}`;
   } catch (err) {
     console.error("Error al generar el enlace acortado:", err);
   }
+
+  */
 
   return mensaje;
 };
